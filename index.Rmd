@@ -1,0 +1,25 @@
+--- 
+title: "Gambling Statistics"
+author: "Dan Rogers"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+#bibliography: [book.bib, packages.bib]
+#biblio-style: apalike
+link-citations: yes
+github-repo: rstudio/bookdown-demo
+description: "Notes on topics pertaining to gambling and expected outcomes using statistics and computer analysis."
+---
+
+# Introduction {-}
+
+I remember being about 16 years old, spending a few weeks each summer at Devil's Lake with my grandparents. One of the fun things we would do is get the felt casino cover for the table out. It had a Blackjack table on one side and Craps on the other. Grandpa would be the house, calling out our bets, informing us of bad bets, and paying out the winner.
+
+During one of those summers, I had just learned about calculating sums for inifinite series. I remember trying to calculate the odds on craps, and realizing it was an infinite series that could be summed just like we had learned in class.  This was really quite amazing. While it was widely believed we would never actually use the math we were learning in class, here was a great example of how it can be used in real life
+
+That example of using math to calculate the expected returns in craps stands out in my mind as something that really drove my interest in gambling and applying statistics to different games.  It wasn't too long after that I was also building computer simulations for games like Blackjack and Poker, trying to re-create basic strategy and the different statistical tables I had seen for Texas Hold 'Em.
+
+Now I'll be the first to admit: this is well-trodden ground that doesn't require any new work or discovery by me.  The [Wizard of Odds](https://wizardofodds.com/) has already calculated statistics and expected returns for pretty much any game you can imagine.  There really isn't any value in me going through and calculating them all myself... except that I like it.  I think it's fun, and I've decided that is reason enough.
+
+I intend to put my notes here as I accumulate them, adding a chapter for each game or subject. There's even a chance that this could turn into a good reference for statistics applied to gambling games.  I intend to start with the most basic games and build up to the more complex. So maybe there is some value in arranging the content in this way and emphasizing the math that gets you to the answer rather than just the result. But really, when it comes down to it, I just find this a fun way to spend time, and that is all that matters.
