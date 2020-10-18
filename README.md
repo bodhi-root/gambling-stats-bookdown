@@ -1,5 +1,7 @@
 # Gambling Stats (Bookdown)
 
+View Book Here: https://bodhi-root.github.io/gambling-stats-bookdown/
+
 This is yet another attempt by me to record some of my favorite applications of statistics and computer analysis: gambling.  I've tried this before in different formats: notebooks, Word, Confluence.  I'd like to build it in a way that is:
 
 1. Easy to edit and add new topics
