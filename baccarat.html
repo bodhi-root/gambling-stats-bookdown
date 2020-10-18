@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4 Baccarat | Gambling Statistics</title>
+  <meta name="description" content="Notes on topics pertaining to gambling and expected outcomes using statistics and computer analysis." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4 Baccarat | Gambling Statistics" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Notes on topics pertaining to gambling and expected outcomes using statistics and computer analysis." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4 Baccarat | Gambling Statistics" />
+  
+  <meta name="twitter:description" content="Notes on topics pertaining to gambling and expected outcomes using statistics and computer analysis." />
+  
+
+<meta name="author" content="Dan Rogers" />
+
+
+<meta name="date" content="2020-10-18" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="craps.html"/>
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./index.html">Gambling Statistics</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1" data-path="flipping-a-coin.html"><a href="flipping-a-coin.html"><i class="fa fa-check"></i><b>1</b> Flipping a Coin (and Basic Probabilities)</a></li>
+<li class="chapter" data-level="2" data-path="roulette.html"><a href="roulette.html"><i class="fa fa-check"></i><b>2</b> Roulette</a></li>
+<li class="chapter" data-level="3" data-path="craps.html"><a href="craps.html"><i class="fa fa-check"></i><b>3</b> Craps</a><ul>
+<li class="chapter" data-level="3.1" data-path="craps.html"><a href="craps.html#dice-odds"><i class="fa fa-check"></i><b>3.1</b> Dice Odds</a></li>
+<li class="chapter" data-level="3.2" data-path="craps.html"><a href="craps.html#single-roll-proposition-bets"><i class="fa fa-check"></i><b>3.2</b> Single Roll (proposition) Bets</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="craps.html"><a href="craps.html#service-bets"><i class="fa fa-check"></i><b>3.2.1</b> Service Bets</a></li>
+<li class="chapter" data-level="3.2.2" data-path="craps.html"><a href="craps.html#ce"><i class="fa fa-check"></i><b>3.2.2</b> C&amp;E</a></li>
+<li class="chapter" data-level="3.2.3" data-path="craps.html"><a href="craps.html#field"><i class="fa fa-check"></i><b>3.2.3</b> Field</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="craps.html"><a href="craps.html#multi-roll-bets"><i class="fa fa-check"></i><b>3.3</b> Multi-Roll Bets</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="craps.html"><a href="craps.html#big-6-big-8"><i class="fa fa-check"></i><b>3.3.1</b> Big 6 &amp; Big 8</a></li>
+<li class="chapter" data-level="3.3.2" data-path="craps.html"><a href="craps.html#hard-way-bets"><i class="fa fa-check"></i><b>3.3.2</b> Hard-Way Bets</a></li>
+<li class="chapter" data-level="3.3.3" data-path="craps.html"><a href="craps.html#place-bets"><i class="fa fa-check"></i><b>3.3.3</b> Place Bets</a></li>
+<li class="chapter" data-level="3.3.4" data-path="craps.html"><a href="craps.html#buy-bets"><i class="fa fa-check"></i><b>3.3.4</b> Buy Bets</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="craps.html"><a href="craps.html#line-bets"><i class="fa fa-check"></i><b>3.4</b> Line Bets</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="craps.html"><a href="craps.html#pass-line"><i class="fa fa-check"></i><b>3.4.1</b> Pass Line</a></li>
+<li class="chapter" data-level="3.4.2" data-path="craps.html"><a href="craps.html#pass-odds"><i class="fa fa-check"></i><b>3.4.2</b> Pass odds</a></li>
+<li class="chapter" data-level="3.4.3" data-path="craps.html"><a href="craps.html#dont-pass"><i class="fa fa-check"></i><b>3.4.3</b> Don’t Pass</a></li>
+<li class="chapter" data-level="3.4.4" data-path="craps.html"><a href="craps.html#dont-pass-odds"><i class="fa fa-check"></i><b>3.4.4</b> Don’t Pass Odds</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="craps.html"><a href="craps.html#summary"><i class="fa fa-check"></i><b>3.5</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="baccarat.html"><a href="baccarat.html"><i class="fa fa-check"></i><b>4</b> Baccarat</a><ul>
+<li class="chapter" data-level="4.1" data-path="baccarat.html"><a href="baccarat.html#overview"><i class="fa fa-check"></i><b>4.1</b> Overview</a></li>
+<li class="chapter" data-level="4.2" data-path="baccarat.html"><a href="baccarat.html#simulation"><i class="fa fa-check"></i><b>4.2</b> Simulation</a></li>
+<li class="chapter" data-level="4.3" data-path="baccarat.html"><a href="baccarat.html#card-counting"><i class="fa fa-check"></i><b>4.3</b> Card Counting</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Gambling Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="baccarat" class="section level1">
+<h1><span class="header-section-number">4</span> Baccarat</h1>
+<div id="overview" class="section level2">
+<h2><span class="header-section-number">4.1</span> Overview</h2>
+<p>Baccarat is often mentioned as a classy game (James Bond plays it in movies) and one where billionaire “whales” can win (or lose) millions of dollars in a single night. It also has one of the smallest house edges in the casino. According to <a href="https://en.wikipedia.org/wiki/Baccarat_(card_game)">Wikipedia</a> it is played with 6-8 decks and follows a somewhat complicated set of rules for dealing cards to a “player” and a “banker”. Observers of the game bet on whether the “player” or “banker” will win. They also can bet on a “tie”.</p>
+<p>According to Wikipedia, the typical payouts and house advantages for these scenarios (with a 8-deck shoe) are below:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Outcome</th>
+<th align="right">Payout</th>
+<th align="right">House Edge</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Banker Wins</td>
+<td align="right">19-to-20</td>
+<td align="right">1.06%</td>
+</tr>
+<tr class="even">
+<td>Player Wins</td>
+<td align="right">1-to-1</td>
+<td align="right">1.24%</td>
+</tr>
+<tr class="odd">
+<td>Tie</td>
+<td align="right">8-to-1</td>
+<td align="right">14.4%</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="simulation" class="section level2">
+<h2><span class="header-section-number">4.2</span> Simulation</h2>
+<p>I wrote a Baccarat simulator in Java to confirm these numbers. The simulator played 1 billion hands of Baccarat following the classic “Punto Banco” rules as described on Wikipedia. This took about 4 minutes to run. The results were:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Winner</th>
+<th align="right">Occurrences</th>
+<th align="right">Percentage</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Banker Wins</td>
+<td align="right">458,618,223</td>
+<td align="right">45.8618223%</td>
+</tr>
+<tr class="even">
+<td>Player Wins</td>
+<td align="right">446,309,890</td>
+<td align="right">44.6309890%</td>
+</tr>
+<tr class="odd">
+<td>Tie</td>
+<td align="right">95,071,887</td>
+<td align="right">9.5071887%</td>
+</tr>
+<tr class="even">
+<td>Total</td>
+<td align="right">1,000,000,000</td>
+<td align="right">100.0000000%</td>
+</tr>
+</tbody>
+</table>
+<p>To calculate the expected return and house advantage we need to include the payouts that result from the bets for each scenario. This is shown in the table below:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Outcome</th>
+<th align="right">Return(B)</th>
+<th align="right">Return(P)</th>
+<th align="right">Return(T)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Banker Wins</td>
+<td align="right">1.95</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td>Player Wins</td>
+<td align="right">0</td>
+<td align="right">2.00</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td>Tie</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
+<td align="right">9.00</td>
+</tr>
+</tbody>
+</table>
+<p>Return(B) indicates the money you receive in each scenario if you bet on the banker winning. Similarly, Return(P) and Return(T) represent bets placed on the player and a tie.</p>
+<p>When multiplying these returns by the probability of each scenario, the expected returns and house advantages for each bet are:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Bet</th>
+<th align="right">Expected Return</th>
+<th align="right">House Advantage</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Banker</td>
+<td align="right">98.94%</td>
+<td align="right">1.06%</td>
+</tr>
+<tr class="even">
+<td>Player</td>
+<td align="right">98.77%</td>
+<td align="right">1.23%</td>
+</tr>
+<tr class="odd">
+<td>Tie</td>
+<td align="right">85.56%</td>
+<td align="right">14.44%</td>
+</tr>
+</tbody>
+</table>
+<p>These match the results from Wikipedia to within +/- .01%.</p>
+<p>If we wanted to get fancy, we could calculate confidence intervals around our estimates. To do this, we make use of the fact that the Bernoulli distribution has a variance of “p(1-p)”. This means that when calculating p as an average of N observations we would expect a standard deviation of “p(1-p) / sqrt(N)” around our estimate of the mean. This allows us to create the following confidence intervals around our probabilities:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Outcome</th>
+<th align="right">Estimate</th>
+<th align="right">Stdev(Estimate)</th>
+<th align="right">Min(Estimate)</th>
+<th align="right">Max(Estimate)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Banker Wins</td>
+<td align="right">45.8618223%</td>
+<td align="right">0.00157571%</td>
+<td align="right">45.8570952%</td>
+<td align="right">45.8665494%</td>
+</tr>
+<tr class="even">
+<td>Player Wins</td>
+<td align="right">44.6309890%</td>
+<td align="right">0.001572%</td>
+<td align="right">44.6262730%</td>
+<td align="right">44.635705%</td>
+</tr>
+<tr class="odd">
+<td>Tie</td>
+<td align="right">9.5071887%</td>
+<td align="right">0.000927541%</td>
+<td align="right">9.5044061%</td>
+<td align="right">9.5099713%</td>
+</tr>
+</tbody>
+</table>
+<p>The Min and Max values of the estimate are calculated using 3 standard deviations. This means that we have a 99% chance of the true probability being somewhere between these two values.</p>
+<p>We can use these min and max estimates to calculate the payouts. This time we get:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Bet</th>
+<th align="right">Expected Return</th>
+<th align="right">House Advantage</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Banker</td>
+<td align="right">98.93 - 98.95%</td>
+<td align="right">1.05 - 1.07%</td>
+</tr>
+<tr class="even">
+<td>Player</td>
+<td align="right">98.76 - 98.78%</td>
+<td align="right">1.22 - 1.24%</td>
+</tr>
+<tr class="odd">
+<td>Tie</td>
+<td align="right">85.54 - 85.59%</td>
+<td align="right">14.41 - 14.46%</td>
+</tr>
+</tbody>
+</table>
+<p>1 billion hands are needed in order to get confidence intervals this small. It is pleasing to see that the exact values from Wikipedia fall into our confidence ranges.</p>
+</div>
+<div id="card-counting" class="section level2">
+<h2><span class="header-section-number">4.3</span> Card Counting</h2>
+<p>Since Baccarat is played from a 6- or 8-deck shoe, you might naturally think there is an opportunity to count cards. The article below provides a great summary of several experts on this subject, each of them indicating that card counting is not practical in this game:</p>
+<ul>
+<li><a href="https://www.888casino.com/blog/baccarat-tips/card-counting-in-baccarat" class="uri">https://www.888casino.com/blog/baccarat-tips/card-counting-in-baccarat</a></li>
+</ul>
+<p>The reason for this is that - unlike Blackjack - there are not cards that clearly favor the player or the banker. There are also no choices made in the game (except for your bet size), meaning that you can’t use your knowledge of the deck to play the cards differently.</p>
+<p>Ed Thorp does provide a card-counting strategy that can yield an advantage to bets made on the player in rare scenarios. A positive advantage of 0.329% occurs every 1,786 hands, which is far too rare to use to your advantage. John May (a baccarat author) developed a counting strategy for betting on a tie that he claims yields a 62% advantage in certain rare scenarios. However, these rare scenarios occur approximately once every 10,000 hands - again making it too rare to be useful. If a player played Baccarat 40 hours a week, this scenario would occur only once every three weeks.</p>
+
+
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="craps.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["gambling-stats.pdf", "gambling-stats.epub"],
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

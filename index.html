@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Gambling Statistics</title>
+  <meta name="description" content="Notes on topics pertaining to gambling and expected outcomes using statistics and computer analysis." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Gambling Statistics" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Notes on topics pertaining to gambling and expected outcomes using statistics and computer analysis." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Gambling Statistics" />
+  
+  <meta name="twitter:description" content="Notes on topics pertaining to gambling and expected outcomes using statistics and computer analysis." />
+  
+
+<meta name="author" content="Dan Rogers" />
+
+
+<meta name="date" content="2020-10-18" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+<link rel="next" href="flipping-a-coin.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./index.html">Gambling Statistics</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1" data-path="flipping-a-coin.html"><a href="flipping-a-coin.html"><i class="fa fa-check"></i><b>1</b> Flipping a Coin (and Basic Probabilities)</a></li>
+<li class="chapter" data-level="2" data-path="roulette.html"><a href="roulette.html"><i class="fa fa-check"></i><b>2</b> Roulette</a></li>
+<li class="chapter" data-level="3" data-path="craps.html"><a href="craps.html"><i class="fa fa-check"></i><b>3</b> Craps</a><ul>
+<li class="chapter" data-level="3.1" data-path="craps.html"><a href="craps.html#dice-odds"><i class="fa fa-check"></i><b>3.1</b> Dice Odds</a></li>
+<li class="chapter" data-level="3.2" data-path="craps.html"><a href="craps.html#single-roll-proposition-bets"><i class="fa fa-check"></i><b>3.2</b> Single Roll (proposition) Bets</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="craps.html"><a href="craps.html#service-bets"><i class="fa fa-check"></i><b>3.2.1</b> Service Bets</a></li>
+<li class="chapter" data-level="3.2.2" data-path="craps.html"><a href="craps.html#ce"><i class="fa fa-check"></i><b>3.2.2</b> C&amp;E</a></li>
+<li class="chapter" data-level="3.2.3" data-path="craps.html"><a href="craps.html#field"><i class="fa fa-check"></i><b>3.2.3</b> Field</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="craps.html"><a href="craps.html#multi-roll-bets"><i class="fa fa-check"></i><b>3.3</b> Multi-Roll Bets</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="craps.html"><a href="craps.html#big-6-big-8"><i class="fa fa-check"></i><b>3.3.1</b> Big 6 &amp; Big 8</a></li>
+<li class="chapter" data-level="3.3.2" data-path="craps.html"><a href="craps.html#hard-way-bets"><i class="fa fa-check"></i><b>3.3.2</b> Hard-Way Bets</a></li>
+<li class="chapter" data-level="3.3.3" data-path="craps.html"><a href="craps.html#place-bets"><i class="fa fa-check"></i><b>3.3.3</b> Place Bets</a></li>
+<li class="chapter" data-level="3.3.4" data-path="craps.html"><a href="craps.html#buy-bets"><i class="fa fa-check"></i><b>3.3.4</b> Buy Bets</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="craps.html"><a href="craps.html#line-bets"><i class="fa fa-check"></i><b>3.4</b> Line Bets</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="craps.html"><a href="craps.html#pass-line"><i class="fa fa-check"></i><b>3.4.1</b> Pass Line</a></li>
+<li class="chapter" data-level="3.4.2" data-path="craps.html"><a href="craps.html#pass-odds"><i class="fa fa-check"></i><b>3.4.2</b> Pass odds</a></li>
+<li class="chapter" data-level="3.4.3" data-path="craps.html"><a href="craps.html#dont-pass"><i class="fa fa-check"></i><b>3.4.3</b> Don’t Pass</a></li>
+<li class="chapter" data-level="3.4.4" data-path="craps.html"><a href="craps.html#dont-pass-odds"><i class="fa fa-check"></i><b>3.4.4</b> Don’t Pass Odds</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="craps.html"><a href="craps.html#summary"><i class="fa fa-check"></i><b>3.5</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="baccarat.html"><a href="baccarat.html"><i class="fa fa-check"></i><b>4</b> Baccarat</a><ul>
+<li class="chapter" data-level="4.1" data-path="baccarat.html"><a href="baccarat.html#overview"><i class="fa fa-check"></i><b>4.1</b> Overview</a></li>
+<li class="chapter" data-level="4.2" data-path="baccarat.html"><a href="baccarat.html#simulation"><i class="fa fa-check"></i><b>4.2</b> Simulation</a></li>
+<li class="chapter" data-level="4.3" data-path="baccarat.html"><a href="baccarat.html#card-counting"><i class="fa fa-check"></i><b>4.3</b> Card Counting</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Gambling Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">Gambling Statistics</h1>
+<p class="author"><em>Dan Rogers</em></p>
+<p class="date"><em>2020-10-18</em></p>
+</div>
+<div id="introduction" class="section level1 unnumbered">
+<h1>Introduction</h1>
+<p>I remember being about 16 years old, spending a few weeks each summer at Devil’s Lake with my grandparents. One of the fun things we would do is get the felt casino cover for the table out. It had a Blackjack table on one side and Craps on the other. Grandpa would be the house, calling out our bets, informing us of bad bets, and paying out the winner.</p>
+<p>During one of those summers, I had just learned about calculating sums for inifinite series. I remember trying to calculate the odds on craps, and realizing it was an infinite series that could be summed just like we had learned in class. This was really quite amazing. While it was widely believed we would never actually use the math we were learning in class, here was a great example of how it can be used in real life</p>
+<p>That example of using math to calculate the expected returns in craps stands out in my mind as something that really drove my interest in gambling and applying statistics to different games. It wasn’t too long after that I was also building computer simulations for games like Blackjack and Poker, trying to re-create basic strategy and the different statistical tables I had seen for Texas Hold ’Em.</p>
+<p>Now I’ll be the first to admit: this is well-trodden ground that doesn’t require any new work or discovery by me. The <a href="https://wizardofodds.com/">Wizard of Odds</a> has already calculated statistics and expected returns for pretty much any game you can imagine. There really isn’t any value in me going through and calculating them all myself… except that I like it. I think it’s fun, and I’ve decided that is reason enough.</p>
+<p>I intend to put my notes here as I accumulate them, adding a chapter for each game or subject. There’s even a chance that this could turn into a good reference for statistics applied to gambling games. I intend to start with the most basic games and build up to the more complex. So maybe there is some value in arranging the content in this way and emphasizing the math that gets you to the answer rather than just the result. But really, when it comes down to it, I just find this a fun way to spend time, and that is all that matters.</p>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="flipping-a-coin.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["gambling-stats.pdf", "gambling-stats.epub"],
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

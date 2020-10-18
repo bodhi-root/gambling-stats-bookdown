@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 Roullette | Gambling Statistics</title>
+  <meta name="description" content="Notes on topics pertaining to gambling and expected outcomes using statistics and computer analysis." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2 Roullette | Gambling Statistics" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Notes on topics pertaining to gambling and expected outcomes using statistics and computer analysis." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2 Roullette | Gambling Statistics" />
+  
+  <meta name="twitter:description" content="Notes on topics pertaining to gambling and expected outcomes using statistics and computer analysis." />
+  
+
+<meta name="author" content="Dan Rogers" />
+
+
+<meta name="date" content="2020-10-17" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="flipping-a-coin.html"/>
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./index.html">Gambling Statistics</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1" data-path="flipping-a-coin.html"><a href="flipping-a-coin.html"><i class="fa fa-check"></i><b>1</b> Flipping a Coin (and Basic Probabilities)</a></li>
+<li class="chapter" data-level="2" data-path="roullette.html"><a href="roullette.html"><i class="fa fa-check"></i><b>2</b> Roullette</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Gambling Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="roullette" class="section level1">
+<h1><span class="header-section-number">2</span> Roullette</h1>
+<div class="figure">
+<img src="images/roulette.jpg" alt="" />
+<p class="caption">Roulette Table</p>
+</div>
+<p>Roulette is a fun and simple game where a large wheel is spun and then a ball is dropped into the wheel. Players bet on where the ball will land. The main numbers range from 1 to 36 and are divided into half red and half black. There is also an additional number: zero that is neither red nor black (nor is it even or odd). In most games, you will find zero (0) and double zero (00). The presence of these numbers is what gives the house its edge in the game.</p>
+<p>There are a variety of bets that can be made in Roulette:</p>
+<ul>
+<li>Red or black, paying 1-to-1</li>
+<li>Even or odd, paying 1-to-1</li>
+<li>Any single number (“Straight Up”), paying 35-to-1</li>
+<li>Two adjacent numbers (“Split”), paying 17 to 1</li>
+<li>Three numbers in a row (“Street”), paying 11 to 1</li>
+<li>Four adjoining numbers (“Corner”), paying 8 to 1</li>
+<li>Twelve numbers, either sequential (“Dozen”) or in a “Column”, paying 2 to 1</li>
+<li>1-18 or 19-36, paying 1-to-1</li>
+</ul>
+<p>Interestingly, the expected return on all of these bets is exactly the same. To show why this is true, let’s calculate a few. First, we’ll calculate my favorite bet: red or black, paying even money.</p>
+<p><span class="math display">\[ Expected Value = \frac{18}{38} * (\$1) + \frac{20}{38} * (-\$1) = -\frac{2}{38} = -0.05263158 \]</span></p>
+<p>Notice that this bet is almost like flipping a coin (<a href="flipping-a-coin.html#flipping-a-coin">1</a>). In fact, if the zeroes were not on the board and we only had 36 numbers, it would be identical. However, the presence of the zeroes means that we have 38 outcomes, not 36, and the 2 new outcomes that are introduced by the presence of the zero are losses for us. This turns the expected return slightly negative, giving the house a 5.26% edge. However much money we place on this bet, we should expect to lose an average of 5.26% with each spin of the wheel.</p>
+<p>Let’s calculate another one. Obviously, the even or odd bet will be the same. So let’s do a straight up bet on a single number. The expected return in this case is:</p>
+<p><span class="math display">\[ Expected Value = \frac{1}{38} * (\$35) + \frac{37}{38} * (-\$1) = -\frac{2}{38} = -0.05263158 \]</span></p>
+<p>As suggested, this is the the same house edge as the red/black or even/odd bet. Knowing that the payout on any bet is equal to the true odds in the absence of the zeroes, we can see that this will always come out the same way. Just to demonstrate this, here are the expected values for bets place on 4 and 12 numbers:</p>
+<p><span class="math display">\[ Expected Value = \frac{4}{38} * (\$8) + \frac{34}{38} * (-\$1) = -\frac{2}{38} = -0.05263158 \]</span></p>
+<p><span class="math display">\[ Expected Value = \frac{12}{38} * (\$2) + \frac{26}{38} * (-\$1) = -\frac{2}{38} = -0.05263158 \]</span></p>
+<p>So far we have analyzed “American” roulette, which has both zero and double zero. “European” roulette instead only has 1 zero. Intuitively, we know that this will improve our odds. Specifically, we find that a single number bet now has the expected value:</p>
+<p><span class="math display">\[ Expected Value = \frac{1}{37} * (\$1) + \frac{36}{37} * (-\$1) = -\frac{1}{37} = 0.02702703 \]</span></p>
+<p>The house edge has been cut almost in half, from 5.26% to 2.70%. As with “American” roulette, all of the other bets will have this same expected value and house edge. Obviously, it is advantageous to players to play at “European” style tables whenever possible.</p>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="flipping-a-coin.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["gambling-stats.pdf", "gambling-stats.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
