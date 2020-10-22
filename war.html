@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Gambling Statistics</title>
+  <title>9 War | Gambling Statistics</title>
   <meta name="description" content="Notes on topics pertaining to gambling and expected outcomes using statistics and computer analysis." />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Gambling Statistics" />
+  <meta property="og:title" content="9 War | Gambling Statistics" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Gambling Statistics" />
+  <meta name="twitter:title" content="9 War | Gambling Statistics" />
   
   <meta name="twitter:description" content="Notes on topics pertaining to gambling and expected outcomes using statistics and computer analysis." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
+<link rel="prev" href="chutes-and-ladders.html"/>
 
-<link rel="next" href="flipping-a-coin.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -217,27 +217,61 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Gambling Statistics</h1>
-<p class="author"><em>Dan Rogers</em></p>
-<p class="date"><em>2020-10-22</em></p>
+<div id="war" class="section level1">
+<h1><span class="header-section-number">9</span> War</h1>
+<div id="overview-4" class="section level2">
+<h2><span class="header-section-number">9.1</span> Overview</h2>
+<p>One of the games that seems like a complete waste of time these days (although I admit I did enjoy playing it as a kid) is “War”. This is the game where you split the deck in half and then each person turns up a card. The person with the highest card wins the round and takes both cards for their pile. In the event of a tie, you have a “war” where you place 3 cards face-down and then 1 face-up. The face-up cards are compared and the winner takes all. Unless it is another tie, in which case you repeat the “war” again.</p>
+<p>There is no strategy in this game and no decisions to make. In fact, despite maybe some randomness in how you collect cards into a pile and how you shuffle, the outcome of the game is essentially known the minute the cards are divided. This makes it a simple game to simulate and answer some basic questions about the game.</p>
 </div>
-<div id="introduction" class="section level1 unnumbered">
-<h1>Introduction</h1>
-<p>I remember being about 16 years old, spending a few weeks each summer at Devil’s Lake with my grandparents. One of the fun things we would do is get the felt casino cover for the table out. It had a Blackjack table on one side and Craps on the other. Grandpa would be the house, calling out our bets, informing us of bad bets, and paying out the winner.</p>
-<p>During one of those summers, I had just learned about calculating sums for inifinite series. I remember trying to calculate the odds on craps, and realizing it was an infinite series that could be summed just like we had learned in class. This was really quite amazing. While it was widely believed we would never actually use the math we were learning in class, here was a great example of how it can be used in real life</p>
-<p>That example of using math to calculate the expected returns in craps stands out in my mind as something that really drove my interest in gambling and applying statistics to different games. It wasn’t too long after that I was also building computer simulations for games like Blackjack and Poker, trying to re-create basic strategy and the different statistical tables I had seen for Texas Hold ’Em.</p>
-<p>Now I’ll be the first to admit: this is well-trodden ground that doesn’t require any new work or discovery by me. The <a href="https://wizardofodds.com/">Wizard of Odds</a> has already calculated statistics and expected returns for pretty much any game you can imagine. There really isn’t any value in me going through and calculating them all myself… except that I like it. I think it’s fun, and I’ve decided that is reason enough.</p>
-<p>I intend to put my notes here as I accumulate them, adding a chapter for each game or subject. There’s even a chance that this could turn into a good reference for statistics applied to gambling games. I intend to start with the most basic games and build up to the more complex. So maybe there is some value in arranging the content in this way and emphasizing the math that gets you to the answer rather than just the result. But really, when it comes down to it, I just find this a fun way to spend time, and that is all that matters.</p>
+<div id="simulation-1" class="section level2">
+<h2><span class="header-section-number">9.2</span> Simulation</h2>
+<p>The simulation can be found in the Java program “com.futurestats.games.war.WarSimulator”.</p>
+<p>One complexity that arose during the simulation was how to handle the cases where a war is in progress and a player runs out of cards. In this case, I decided the player that still had cards left wins the game. <a href="https://en.wikipedia.org/wiki/War_(card_game)">Wikipedia</a> had this to say on the topic:</p>
+<blockquote>
+<p>“Most descriptions of War are unclear about what happens if a player runs out of cards during a war. In some variants, that player immediately loses. In others, the player may play the last card in their deck as their face-up card for the remainder of the war or replay the game from the beginning.”</p>
+</blockquote>
+<p>Other than this ambiguity, the coding of the simulation was very straight-forward.</p>
+</div>
+<div id="results" class="section level2">
+<h2><span class="header-section-number">9.3</span> Results</h2>
+<p>I ran two simulations: one including Jokers in the deck and one without. In each case we simulated 100,000 games and recorded how many rounds the game lasted. The results are below:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Simulation</th>
+<th align="right">Avg. Rounds</th>
+<th align="right">Min Rounds</th>
+<th align="right">Max Rounds</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">No Jokers</td>
+<td align="right">234.44686</td>
+<td align="right">5</td>
+<td align="right">2088</td>
+</tr>
+<tr class="even">
+<td align="left">Jokers</td>
+<td align="right">270.48799</td>
+<td align="right">5</td>
+<td align="right">2396</td>
+</tr>
+</tbody>
+</table>
+<p>On average, a game lasts 234-270 rounds (depending on whether you have Jokers or not). Jokers extend the game - which makes sense because they are hard cards to capture from your opponent. The shortest game observed was only 5 turns. This must have been a game with a long “war” with many ties since you’d have to capture 26-27 cards in these 5 turns. The longest games were over 2,000 rounds.</p>
+<p>If you play quickly, you could probably do a round every 1-2 seconds. That means you can expect your game to last an average of 4-8 minutes. But don’t be surprised if you end up in the long tail with games that can run as long as 40-80 minutes - especially if you use Jokers.</p>
 
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
+<a href="chutes-and-ladders.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="flipping-a-coin.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

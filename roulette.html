@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>2 Roulette | Gambling Statistics</title>
+  <title>3 Roulette | Gambling Statistics</title>
   <meta name="description" content="Notes on topics pertaining to gambling and expected outcomes using statistics and computer analysis." />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="2 Roulette | Gambling Statistics" />
+  <meta property="og:title" content="3 Roulette | Gambling Statistics" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="2 Roulette | Gambling Statistics" />
+  <meta name="twitter:title" content="3 Roulette | Gambling Statistics" />
   
   <meta name="twitter:description" content="Notes on topics pertaining to gambling and expected outcomes using statistics and computer analysis." />
   
@@ -24,14 +24,14 @@
 <meta name="author" content="Dan Rogers" />
 
 
-<meta name="date" content="2020-10-18" />
+<meta name="date" content="2020-10-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="flipping-a-coin.html"/>
+<link rel="prev" href="problem-of-points.html"/>
 <link rel="next" href="craps.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -53,6 +53,70 @@
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -71,33 +135,70 @@
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
-<li class="chapter" data-level="1" data-path="flipping-a-coin.html"><a href="flipping-a-coin.html"><i class="fa fa-check"></i><b>1</b> Flipping a Coin (and Basic Probabilities)</a></li>
-<li class="chapter" data-level="2" data-path="roulette.html"><a href="roulette.html"><i class="fa fa-check"></i><b>2</b> Roulette</a></li>
-<li class="chapter" data-level="3" data-path="craps.html"><a href="craps.html"><i class="fa fa-check"></i><b>3</b> Craps</a><ul>
-<li class="chapter" data-level="3.1" data-path="craps.html"><a href="craps.html#dice-odds"><i class="fa fa-check"></i><b>3.1</b> Dice Odds</a></li>
-<li class="chapter" data-level="3.2" data-path="craps.html"><a href="craps.html#single-roll-proposition-bets"><i class="fa fa-check"></i><b>3.2</b> Single Roll (proposition) Bets</a><ul>
-<li class="chapter" data-level="3.2.1" data-path="craps.html"><a href="craps.html#service-bets"><i class="fa fa-check"></i><b>3.2.1</b> Service Bets</a></li>
-<li class="chapter" data-level="3.2.2" data-path="craps.html"><a href="craps.html#ce"><i class="fa fa-check"></i><b>3.2.2</b> C&amp;E</a></li>
-<li class="chapter" data-level="3.2.3" data-path="craps.html"><a href="craps.html#field"><i class="fa fa-check"></i><b>3.2.3</b> Field</a></li>
+<li class="chapter" data-level="1" data-path="flipping-a-coin.html"><a href="flipping-a-coin.html"><i class="fa fa-check"></i><b>1</b> Flipping a Coin (and Basic Probabilities)</a><ul>
+<li class="chapter" data-level="1.1" data-path="flipping-a-coin.html"><a href="flipping-a-coin.html#overview"><i class="fa fa-check"></i><b>1.1</b> Overview</a></li>
+<li class="chapter" data-level="1.2" data-path="flipping-a-coin.html"><a href="flipping-a-coin.html#payouts-for-unfair-coins"><i class="fa fa-check"></i><b>1.2</b> Payouts for Unfair Coins</a></li>
+<li class="chapter" data-level="1.3" data-path="flipping-a-coin.html"><a href="flipping-a-coin.html#inferring-the-bias-of-a-coin"><i class="fa fa-check"></i><b>1.3</b> Inferring the Bias of a Coin</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="flipping-a-coin.html"><a href="flipping-a-coin.html#maximum-likelihood-estimates"><i class="fa fa-check"></i><b>1.3.1</b> Maximum Likelihood Estimates</a></li>
+<li class="chapter" data-level="1.3.2" data-path="flipping-a-coin.html"><a href="flipping-a-coin.html#getting-bayesian-with-it"><i class="fa fa-check"></i><b>1.3.2</b> Getting Bayesian With It</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="craps.html"><a href="craps.html#multi-roll-bets"><i class="fa fa-check"></i><b>3.3</b> Multi-Roll Bets</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="craps.html"><a href="craps.html#big-6-big-8"><i class="fa fa-check"></i><b>3.3.1</b> Big 6 &amp; Big 8</a></li>
-<li class="chapter" data-level="3.3.2" data-path="craps.html"><a href="craps.html#hard-way-bets"><i class="fa fa-check"></i><b>3.3.2</b> Hard-Way Bets</a></li>
-<li class="chapter" data-level="3.3.3" data-path="craps.html"><a href="craps.html#place-bets"><i class="fa fa-check"></i><b>3.3.3</b> Place Bets</a></li>
-<li class="chapter" data-level="3.3.4" data-path="craps.html"><a href="craps.html#buy-bets"><i class="fa fa-check"></i><b>3.3.4</b> Buy Bets</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="craps.html"><a href="craps.html#line-bets"><i class="fa fa-check"></i><b>3.4</b> Line Bets</a><ul>
-<li class="chapter" data-level="3.4.1" data-path="craps.html"><a href="craps.html#pass-line"><i class="fa fa-check"></i><b>3.4.1</b> Pass Line</a></li>
-<li class="chapter" data-level="3.4.2" data-path="craps.html"><a href="craps.html#pass-odds"><i class="fa fa-check"></i><b>3.4.2</b> Pass odds</a></li>
-<li class="chapter" data-level="3.4.3" data-path="craps.html"><a href="craps.html#dont-pass"><i class="fa fa-check"></i><b>3.4.3</b> Don’t Pass</a></li>
-<li class="chapter" data-level="3.4.4" data-path="craps.html"><a href="craps.html#dont-pass-odds"><i class="fa fa-check"></i><b>3.4.4</b> Don’t Pass Odds</a></li>
+<li class="chapter" data-level="2" data-path="problem-of-points.html"><a href="problem-of-points.html"><i class="fa fa-check"></i><b>2</b> Problem of Points</a><ul>
+<li class="chapter" data-level="2.1" data-path="problem-of-points.html"><a href="problem-of-points.html#overview-1"><i class="fa fa-check"></i><b>2.1</b> Overview</a></li>
+<li class="chapter" data-level="2.2" data-path="problem-of-points.html"><a href="problem-of-points.html#solution"><i class="fa fa-check"></i><b>2.2</b> Solution</a></li>
+<li class="chapter" data-level="2.3" data-path="problem-of-points.html"><a href="problem-of-points.html#inferring-a-players-advantage"><i class="fa fa-check"></i><b>2.3</b> Inferring a Player’s Advantage</a></li>
+<li class="chapter" data-level="2.4" data-path="problem-of-points.html"><a href="problem-of-points.html#historical-notes"><i class="fa fa-check"></i><b>2.4</b> Historical Notes</a></li>
 </ul></li>
-<li class="chapter" data-level="3.5" data-path="craps.html"><a href="craps.html#summary"><i class="fa fa-check"></i><b>3.5</b> Summary</a></li>
+<li class="chapter" data-level="3" data-path="roulette.html"><a href="roulette.html"><i class="fa fa-check"></i><b>3</b> Roulette</a></li>
+<li class="chapter" data-level="4" data-path="craps.html"><a href="craps.html"><i class="fa fa-check"></i><b>4</b> Craps</a><ul>
+<li class="chapter" data-level="4.1" data-path="craps.html"><a href="craps.html#dice-odds"><i class="fa fa-check"></i><b>4.1</b> Dice Odds</a></li>
+<li class="chapter" data-level="4.2" data-path="craps.html"><a href="craps.html#single-roll-proposition-bets"><i class="fa fa-check"></i><b>4.2</b> Single Roll (proposition) Bets</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="craps.html"><a href="craps.html#service-bets"><i class="fa fa-check"></i><b>4.2.1</b> Service Bets</a></li>
+<li class="chapter" data-level="4.2.2" data-path="craps.html"><a href="craps.html#ce"><i class="fa fa-check"></i><b>4.2.2</b> C&amp;E</a></li>
+<li class="chapter" data-level="4.2.3" data-path="craps.html"><a href="craps.html#field"><i class="fa fa-check"></i><b>4.2.3</b> Field</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="baccarat.html"><a href="baccarat.html"><i class="fa fa-check"></i><b>4</b> Baccarat</a><ul>
-<li class="chapter" data-level="4.1" data-path="baccarat.html"><a href="baccarat.html#overview"><i class="fa fa-check"></i><b>4.1</b> Overview</a></li>
-<li class="chapter" data-level="4.2" data-path="baccarat.html"><a href="baccarat.html#simulation"><i class="fa fa-check"></i><b>4.2</b> Simulation</a></li>
-<li class="chapter" data-level="4.3" data-path="baccarat.html"><a href="baccarat.html#card-counting"><i class="fa fa-check"></i><b>4.3</b> Card Counting</a></li>
+<li class="chapter" data-level="4.3" data-path="craps.html"><a href="craps.html#multi-roll-bets"><i class="fa fa-check"></i><b>4.3</b> Multi-Roll Bets</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="craps.html"><a href="craps.html#big-6-big-8"><i class="fa fa-check"></i><b>4.3.1</b> Big 6 &amp; Big 8</a></li>
+<li class="chapter" data-level="4.3.2" data-path="craps.html"><a href="craps.html#hard-way-bets"><i class="fa fa-check"></i><b>4.3.2</b> Hard-Way Bets</a></li>
+<li class="chapter" data-level="4.3.3" data-path="craps.html"><a href="craps.html#place-bets"><i class="fa fa-check"></i><b>4.3.3</b> Place Bets</a></li>
+<li class="chapter" data-level="4.3.4" data-path="craps.html"><a href="craps.html#buy-bets"><i class="fa fa-check"></i><b>4.3.4</b> Buy Bets</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="craps.html"><a href="craps.html#line-bets"><i class="fa fa-check"></i><b>4.4</b> Line Bets</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="craps.html"><a href="craps.html#pass-line"><i class="fa fa-check"></i><b>4.4.1</b> Pass Line</a></li>
+<li class="chapter" data-level="4.4.2" data-path="craps.html"><a href="craps.html#pass-odds"><i class="fa fa-check"></i><b>4.4.2</b> Pass odds</a></li>
+<li class="chapter" data-level="4.4.3" data-path="craps.html"><a href="craps.html#dont-pass"><i class="fa fa-check"></i><b>4.4.3</b> Don’t Pass</a></li>
+<li class="chapter" data-level="4.4.4" data-path="craps.html"><a href="craps.html#dont-pass-odds"><i class="fa fa-check"></i><b>4.4.4</b> Don’t Pass Odds</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="craps.html"><a href="craps.html#summary"><i class="fa fa-check"></i><b>4.5</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="baccarat.html"><a href="baccarat.html"><i class="fa fa-check"></i><b>5</b> Baccarat</a><ul>
+<li class="chapter" data-level="5.1" data-path="baccarat.html"><a href="baccarat.html#overview-2"><i class="fa fa-check"></i><b>5.1</b> Overview</a></li>
+<li class="chapter" data-level="5.2" data-path="baccarat.html"><a href="baccarat.html#simulation"><i class="fa fa-check"></i><b>5.2</b> Simulation</a></li>
+<li class="chapter" data-level="5.3" data-path="baccarat.html"><a href="baccarat.html#card-counting"><i class="fa fa-check"></i><b>5.3</b> Card Counting</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="blackjack.html"><a href="blackjack.html"><i class="fa fa-check"></i><b>6</b> Blackjack</a><ul>
+<li class="chapter" data-level="6.1" data-path="blackjack.html"><a href="blackjack.html#introduction-1"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="blackjack.html"><a href="blackjack.html#basic-strategy"><i class="fa fa-check"></i><b>6.2</b> Basic Strategy</a></li>
+<li class="chapter" data-level="6.3" data-path="blackjack.html"><a href="blackjack.html#simulation-analysis"><i class="fa fa-check"></i><b>6.3</b> Simulation &amp; Analysis</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="blackjack.html"><a href="blackjack.html#expected-returns"><i class="fa fa-check"></i><b>6.3.1</b> Expected Returns</a></li>
+<li class="chapter" data-level="6.3.2" data-path="blackjack.html"><a href="blackjack.html#probability-of-blackjack"><i class="fa fa-check"></i><b>6.3.2</b> Probability of Blackjack</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="blackjack.html"><a href="blackjack.html#card-counting-1"><i class="fa fa-check"></i><b>6.4</b> Card Counting</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="blackjack.html"><a href="blackjack.html#hilo-count"><i class="fa fa-check"></i><b>6.4.1</b> Hi/Lo Count</a></li>
+<li class="chapter" data-level="6.4.2" data-path="blackjack.html"><a href="blackjack.html#acefive-count"><i class="fa fa-check"></i><b>6.4.2</b> Ace/Five Count</a></li>
+<li class="chapter" data-level="6.4.3" data-path="blackjack.html"><a href="blackjack.html#continuous-shuffling-machines-csms"><i class="fa fa-check"></i><b>6.4.3</b> Continuous Shuffling Machines (CSMs)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="other-games.html"><a href="other-games.html"><i class="fa fa-check"></i><b>7</b> Other Games</a></li>
+<li class="chapter" data-level="8" data-path="chutes-and-ladders.html"><a href="chutes-and-ladders.html"><i class="fa fa-check"></i><b>8</b> Chutes and Ladders</a><ul>
+<li class="chapter" data-level="8.1" data-path="chutes-and-ladders.html"><a href="chutes-and-ladders.html#overview-3"><i class="fa fa-check"></i><b>8.1</b> Overview</a></li>
+<li class="chapter" data-level="8.2" data-path="chutes-and-ladders.html"><a href="chutes-and-ladders.html#markov-processes-and-chains"><i class="fa fa-check"></i><b>8.2</b> Markov Processes and Chains</a></li>
+<li class="chapter" data-level="8.3" data-path="chutes-and-ladders.html"><a href="chutes-and-ladders.html#statistics"><i class="fa fa-check"></i><b>8.3</b> Statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="war.html"><a href="war.html"><i class="fa fa-check"></i><b>9</b> War</a><ul>
+<li class="chapter" data-level="9.1" data-path="war.html"><a href="war.html#overview-4"><i class="fa fa-check"></i><b>9.1</b> Overview</a></li>
+<li class="chapter" data-level="9.2" data-path="war.html"><a href="war.html#simulation-1"><i class="fa fa-check"></i><b>9.2</b> Simulation</a></li>
+<li class="chapter" data-level="9.3" data-path="war.html"><a href="war.html#results"><i class="fa fa-check"></i><b>9.3</b> Results</a></li>
 </ul></li>
 </ul>
 
@@ -117,7 +218,7 @@
 
             <section class="normal" id="section-">
 <div id="roulette" class="section level1">
-<h1><span class="header-section-number">2</span> Roulette</h1>
+<h1><span class="header-section-number">3</span> Roulette</h1>
 <div class="figure">
 <img src="images/roulette.jpg" alt="" />
 <p class="caption">Roulette Table</p>
@@ -143,7 +244,7 @@
 <p><span class="math display">\[ Expected Value = \frac{4}{38} * (\$8) + \frac{34}{38} * (-\$1) = -\frac{2}{38} = -0.05263158 \]</span></p>
 <p><span class="math display">\[ Expected Value = \frac{12}{38} * (\$2) + \frac{26}{38} * (-\$1) = -\frac{2}{38} = -0.05263158 \]</span></p>
 <p>So far we have analyzed “American” roulette, which has both zero and double zero. “European” roulette instead only has 1 zero. Intuitively, we know that this will improve our odds. Specifically, we find that a single number bet now has the expected value:</p>
-<p><span class="math display">\[ Expected Value = \frac{1}{37} * (\$1) + \frac{36}{37} * (-\$1) = -\frac{1}{37} = 0.02702703 \]</span></p>
+<p><span class="math display">\[ Expected Value = \frac{1}{37} * (\$1) + \frac{36}{37} * (-\$1) = -\frac{1}{37} = -0.02702703 \]</span></p>
 <p>The house edge has been cut almost in half, from 5.26% to 2.70%. As with “American” roulette, all of the other bets will have this same expected value and house edge. Obviously, it is advantageous to players to play at “European” style tables whenever possible.</p>
 
 </div>
@@ -152,7 +253,7 @@
           </div>
         </div>
       </div>
-<a href="flipping-a-coin.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="problem-of-points.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="craps.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

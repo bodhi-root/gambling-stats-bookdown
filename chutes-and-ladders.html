@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>8 Chutes and Ladders | Gambling Statistics</title>
+  <meta name="description" content="Notes on topics pertaining to gambling and expected outcomes using statistics and computer analysis." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="8 Chutes and Ladders | Gambling Statistics" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Notes on topics pertaining to gambling and expected outcomes using statistics and computer analysis." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="8 Chutes and Ladders | Gambling Statistics" />
+  
+  <meta name="twitter:description" content="Notes on topics pertaining to gambling and expected outcomes using statistics and computer analysis." />
+  
+
+<meta name="author" content="Dan Rogers" />
+
+
+<meta name="date" content="2020-10-22" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="other-games.html"/>
+<link rel="next" href="war.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./index.html">Gambling Statistics</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1" data-path="flipping-a-coin.html"><a href="flipping-a-coin.html"><i class="fa fa-check"></i><b>1</b> Flipping a Coin (and Basic Probabilities)</a><ul>
+<li class="chapter" data-level="1.1" data-path="flipping-a-coin.html"><a href="flipping-a-coin.html#overview"><i class="fa fa-check"></i><b>1.1</b> Overview</a></li>
+<li class="chapter" data-level="1.2" data-path="flipping-a-coin.html"><a href="flipping-a-coin.html#payouts-for-unfair-coins"><i class="fa fa-check"></i><b>1.2</b> Payouts for Unfair Coins</a></li>
+<li class="chapter" data-level="1.3" data-path="flipping-a-coin.html"><a href="flipping-a-coin.html#inferring-the-bias-of-a-coin"><i class="fa fa-check"></i><b>1.3</b> Inferring the Bias of a Coin</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="flipping-a-coin.html"><a href="flipping-a-coin.html#maximum-likelihood-estimates"><i class="fa fa-check"></i><b>1.3.1</b> Maximum Likelihood Estimates</a></li>
+<li class="chapter" data-level="1.3.2" data-path="flipping-a-coin.html"><a href="flipping-a-coin.html#getting-bayesian-with-it"><i class="fa fa-check"></i><b>1.3.2</b> Getting Bayesian With It</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="problem-of-points.html"><a href="problem-of-points.html"><i class="fa fa-check"></i><b>2</b> Problem of Points</a><ul>
+<li class="chapter" data-level="2.1" data-path="problem-of-points.html"><a href="problem-of-points.html#overview-1"><i class="fa fa-check"></i><b>2.1</b> Overview</a></li>
+<li class="chapter" data-level="2.2" data-path="problem-of-points.html"><a href="problem-of-points.html#solution"><i class="fa fa-check"></i><b>2.2</b> Solution</a></li>
+<li class="chapter" data-level="2.3" data-path="problem-of-points.html"><a href="problem-of-points.html#inferring-a-players-advantage"><i class="fa fa-check"></i><b>2.3</b> Inferring a Player’s Advantage</a></li>
+<li class="chapter" data-level="2.4" data-path="problem-of-points.html"><a href="problem-of-points.html#historical-notes"><i class="fa fa-check"></i><b>2.4</b> Historical Notes</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="roulette.html"><a href="roulette.html"><i class="fa fa-check"></i><b>3</b> Roulette</a></li>
+<li class="chapter" data-level="4" data-path="craps.html"><a href="craps.html"><i class="fa fa-check"></i><b>4</b> Craps</a><ul>
+<li class="chapter" data-level="4.1" data-path="craps.html"><a href="craps.html#dice-odds"><i class="fa fa-check"></i><b>4.1</b> Dice Odds</a></li>
+<li class="chapter" data-level="4.2" data-path="craps.html"><a href="craps.html#single-roll-proposition-bets"><i class="fa fa-check"></i><b>4.2</b> Single Roll (proposition) Bets</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="craps.html"><a href="craps.html#service-bets"><i class="fa fa-check"></i><b>4.2.1</b> Service Bets</a></li>
+<li class="chapter" data-level="4.2.2" data-path="craps.html"><a href="craps.html#ce"><i class="fa fa-check"></i><b>4.2.2</b> C&amp;E</a></li>
+<li class="chapter" data-level="4.2.3" data-path="craps.html"><a href="craps.html#field"><i class="fa fa-check"></i><b>4.2.3</b> Field</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="craps.html"><a href="craps.html#multi-roll-bets"><i class="fa fa-check"></i><b>4.3</b> Multi-Roll Bets</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="craps.html"><a href="craps.html#big-6-big-8"><i class="fa fa-check"></i><b>4.3.1</b> Big 6 &amp; Big 8</a></li>
+<li class="chapter" data-level="4.3.2" data-path="craps.html"><a href="craps.html#hard-way-bets"><i class="fa fa-check"></i><b>4.3.2</b> Hard-Way Bets</a></li>
+<li class="chapter" data-level="4.3.3" data-path="craps.html"><a href="craps.html#place-bets"><i class="fa fa-check"></i><b>4.3.3</b> Place Bets</a></li>
+<li class="chapter" data-level="4.3.4" data-path="craps.html"><a href="craps.html#buy-bets"><i class="fa fa-check"></i><b>4.3.4</b> Buy Bets</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="craps.html"><a href="craps.html#line-bets"><i class="fa fa-check"></i><b>4.4</b> Line Bets</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="craps.html"><a href="craps.html#pass-line"><i class="fa fa-check"></i><b>4.4.1</b> Pass Line</a></li>
+<li class="chapter" data-level="4.4.2" data-path="craps.html"><a href="craps.html#pass-odds"><i class="fa fa-check"></i><b>4.4.2</b> Pass odds</a></li>
+<li class="chapter" data-level="4.4.3" data-path="craps.html"><a href="craps.html#dont-pass"><i class="fa fa-check"></i><b>4.4.3</b> Don’t Pass</a></li>
+<li class="chapter" data-level="4.4.4" data-path="craps.html"><a href="craps.html#dont-pass-odds"><i class="fa fa-check"></i><b>4.4.4</b> Don’t Pass Odds</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="craps.html"><a href="craps.html#summary"><i class="fa fa-check"></i><b>4.5</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="baccarat.html"><a href="baccarat.html"><i class="fa fa-check"></i><b>5</b> Baccarat</a><ul>
+<li class="chapter" data-level="5.1" data-path="baccarat.html"><a href="baccarat.html#overview-2"><i class="fa fa-check"></i><b>5.1</b> Overview</a></li>
+<li class="chapter" data-level="5.2" data-path="baccarat.html"><a href="baccarat.html#simulation"><i class="fa fa-check"></i><b>5.2</b> Simulation</a></li>
+<li class="chapter" data-level="5.3" data-path="baccarat.html"><a href="baccarat.html#card-counting"><i class="fa fa-check"></i><b>5.3</b> Card Counting</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="blackjack.html"><a href="blackjack.html"><i class="fa fa-check"></i><b>6</b> Blackjack</a><ul>
+<li class="chapter" data-level="6.1" data-path="blackjack.html"><a href="blackjack.html#introduction-1"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="blackjack.html"><a href="blackjack.html#basic-strategy"><i class="fa fa-check"></i><b>6.2</b> Basic Strategy</a></li>
+<li class="chapter" data-level="6.3" data-path="blackjack.html"><a href="blackjack.html#simulation-analysis"><i class="fa fa-check"></i><b>6.3</b> Simulation &amp; Analysis</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="blackjack.html"><a href="blackjack.html#expected-returns"><i class="fa fa-check"></i><b>6.3.1</b> Expected Returns</a></li>
+<li class="chapter" data-level="6.3.2" data-path="blackjack.html"><a href="blackjack.html#probability-of-blackjack"><i class="fa fa-check"></i><b>6.3.2</b> Probability of Blackjack</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="blackjack.html"><a href="blackjack.html#card-counting-1"><i class="fa fa-check"></i><b>6.4</b> Card Counting</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="blackjack.html"><a href="blackjack.html#hilo-count"><i class="fa fa-check"></i><b>6.4.1</b> Hi/Lo Count</a></li>
+<li class="chapter" data-level="6.4.2" data-path="blackjack.html"><a href="blackjack.html#acefive-count"><i class="fa fa-check"></i><b>6.4.2</b> Ace/Five Count</a></li>
+<li class="chapter" data-level="6.4.3" data-path="blackjack.html"><a href="blackjack.html#continuous-shuffling-machines-csms"><i class="fa fa-check"></i><b>6.4.3</b> Continuous Shuffling Machines (CSMs)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="other-games.html"><a href="other-games.html"><i class="fa fa-check"></i><b>7</b> Other Games</a></li>
+<li class="chapter" data-level="8" data-path="chutes-and-ladders.html"><a href="chutes-and-ladders.html"><i class="fa fa-check"></i><b>8</b> Chutes and Ladders</a><ul>
+<li class="chapter" data-level="8.1" data-path="chutes-and-ladders.html"><a href="chutes-and-ladders.html#overview-3"><i class="fa fa-check"></i><b>8.1</b> Overview</a></li>
+<li class="chapter" data-level="8.2" data-path="chutes-and-ladders.html"><a href="chutes-and-ladders.html#markov-processes-and-chains"><i class="fa fa-check"></i><b>8.2</b> Markov Processes and Chains</a></li>
+<li class="chapter" data-level="8.3" data-path="chutes-and-ladders.html"><a href="chutes-and-ladders.html#statistics"><i class="fa fa-check"></i><b>8.3</b> Statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="war.html"><a href="war.html"><i class="fa fa-check"></i><b>9</b> War</a><ul>
+<li class="chapter" data-level="9.1" data-path="war.html"><a href="war.html#overview-4"><i class="fa fa-check"></i><b>9.1</b> Overview</a></li>
+<li class="chapter" data-level="9.2" data-path="war.html"><a href="war.html#simulation-1"><i class="fa fa-check"></i><b>9.2</b> Simulation</a></li>
+<li class="chapter" data-level="9.3" data-path="war.html"><a href="war.html#results"><i class="fa fa-check"></i><b>9.3</b> Results</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Gambling Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="chutes-and-ladders" class="section level1">
+<h1><span class="header-section-number">8</span> Chutes and Ladders</h1>
+<div class="figure">
+<img src="images/chutes-and-ladders.png" alt="" />
+<p class="caption">Chutes and Ladders Board</p>
+</div>
+<div id="overview-3" class="section level2">
+<h2><span class="header-section-number">8.1</span> Overview</h2>
+<p>Chutes and Ladders is one of my least favorite games to play. Even though the dice introduce randomness into the game, it still feels like you are just going through the motions of a deterministic process, waiting to see who comes out the winner. There are no decisions to make and no way that you can impact the game or improve your odds of winning. It feels very passive.</p>
+<p>I remember when I was about 22, working at the University of Cincinnati, and thinking about how much I hate this game. I wondered how long the game takes to play on average. With the unfettered access university employees get to academic journals, I came across an article:</p>
+<blockquote>
+<p>“How Long Is a Game of Snakes and Ladders?” (S.C. Althoen, L. King and K.Schilling, The Mathematical Gazette, Vol. 77, No. 478, pp. 71-76, Mar. 1993). <a href="https://www.jstor.org/stable/3619261">linke here</a></p>
+</blockquote>
+<p>Not only did this article provide an answer: 39.2 turns on average, it also provided an exact fractional representation of the expected game length:</p>
+<p><span class="math display">\[ \frac{225837582538403273407117496273279920181931269186581786048583}{5757472998140039232950575874628786131130999406013041613400} \]</span></p>
+<p>I thought that was pretty bad-ass! The paper also explained how the entire game could be modeled as a “state-absorbing Markov chain”, which sounded fun to work with. Of course, it wasn’t enough just to get the answer. I wanted to reproduce it myself and learn more about these Markov chains. So that’s exactly what I did.</p>
+</div>
+<div id="markov-processes-and-chains" class="section level2">
+<h2><span class="header-section-number">8.2</span> Markov Processes and Chains</h2>
+<p>A Markov process is a process whose future state is entirely determined by its current state. It does not matter what has come before. The current state is enough to know what will come next. All you really need is some way to represent the current state, and then some kind of transition function you apply to the current state to get the next state. This can then be iterated forward in discrete steps to discover future states. A “Markov chain” refers to the model you build to describe the particular process.</p>
+<p>In Chutes-and-Ladders the current state can be modeled by a 101 element vector. This vector represents the 100 positions on the board (labeled 1 to 100) and the starting position (position 0) which is off the board. The player begins in position 0, so that we initialize our state to a vector of all zeroes except for a 1 in the first element.</p>
+<p>The transition matrix represents the roll of a die and what can happen to your player when that happens. With a 6-sided die there is a 1/6 chance of rolling each number, and each number indicates the number of states you will advance. Thus, if you are on space #10 you have a 1/6 chance of being on space #11 the next round, a 1/6 chance of being on space #12, and so on through space #16. This would be true if there were no chutes or ladders. Actually, there is a chute on space #16 that takes you back to space #6. So the transition matrix would need to be adjusted to show that you actually have a 1/6 chance of going to space #6 and a zero chance of going to #16. The R code below builds the appropriate initial state vector and transition matrix for the game:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="chutes-and-ladders.html#cb7-1"></a>state0 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="kw">rep</span>(<span class="dv">0</span>, <span class="dv">100</span>))</span>
+<span id="cb7-2"><a href="chutes-and-ladders.html#cb7-2"></a></span>
+<span id="cb7-3"><a href="chutes-and-ladders.html#cb7-3"></a>T_matrix &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>, <span class="dt">nrow=</span><span class="dv">101</span>, <span class="dt">ncol=</span><span class="dv">101</span>)</span>
+<span id="cb7-4"><a href="chutes-and-ladders.html#cb7-4"></a></span>
+<span id="cb7-5"><a href="chutes-and-ladders.html#cb7-5"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">0</span><span class="op">:</span><span class="dv">101</span>) {</span>
+<span id="cb7-6"><a href="chutes-and-ladders.html#cb7-6"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>) {</span>
+<span id="cb7-7"><a href="chutes-and-ladders.html#cb7-7"></a>    next_space &lt;-<span class="st"> </span>i <span class="op">+</span><span class="st"> </span>j</span>
+<span id="cb7-8"><a href="chutes-and-ladders.html#cb7-8"></a>    <span class="cf">if</span> (next_space <span class="op">&gt;</span><span class="st"> </span><span class="dv">101</span>) { <span class="co"># must land on last space exactly</span></span>
+<span id="cb7-9"><a href="chutes-and-ladders.html#cb7-9"></a>      next_space &lt;-<span class="st"> </span>i</span>
+<span id="cb7-10"><a href="chutes-and-ladders.html#cb7-10"></a>    }</span>
+<span id="cb7-11"><a href="chutes-and-ladders.html#cb7-11"></a>    T_matrix[next_space, i] &lt;-<span class="st"> </span>T_matrix[next_space, i] <span class="op">+</span><span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="dv">6</span></span>
+<span id="cb7-12"><a href="chutes-and-ladders.html#cb7-12"></a>  }</span>
+<span id="cb7-13"><a href="chutes-and-ladders.html#cb7-13"></a>}</span>
+<span id="cb7-14"><a href="chutes-and-ladders.html#cb7-14"></a></span>
+<span id="cb7-15"><a href="chutes-and-ladders.html#cb7-15"></a>df_special &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw">tribble</span>(</span>
+<span id="cb7-16"><a href="chutes-and-ladders.html#cb7-16"></a>  <span class="op">~</span>type, <span class="op">~</span>from, <span class="op">~</span>to,</span>
+<span id="cb7-17"><a href="chutes-and-ladders.html#cb7-17"></a>  <span class="st">&quot;L&quot;</span>, <span class="dv">1</span>, <span class="dv">38</span>,</span>
+<span id="cb7-18"><a href="chutes-and-ladders.html#cb7-18"></a>  <span class="st">&quot;L&quot;</span>, <span class="dv">4</span>, <span class="dv">14</span>,</span>
+<span id="cb7-19"><a href="chutes-and-ladders.html#cb7-19"></a>  <span class="st">&quot;L&quot;</span>, <span class="dv">9</span>, <span class="dv">31</span>,</span>
+<span id="cb7-20"><a href="chutes-and-ladders.html#cb7-20"></a>  <span class="st">&quot;L&quot;</span>, <span class="dv">21</span>, <span class="dv">42</span>,</span>
+<span id="cb7-21"><a href="chutes-and-ladders.html#cb7-21"></a>  <span class="st">&quot;L&quot;</span>, <span class="dv">28</span>, <span class="dv">84</span>,</span>
+<span id="cb7-22"><a href="chutes-and-ladders.html#cb7-22"></a>  <span class="st">&quot;L&quot;</span>, <span class="dv">36</span>, <span class="dv">44</span>,</span>
+<span id="cb7-23"><a href="chutes-and-ladders.html#cb7-23"></a>  <span class="st">&quot;L&quot;</span>, <span class="dv">51</span>, <span class="dv">67</span>,</span>
+<span id="cb7-24"><a href="chutes-and-ladders.html#cb7-24"></a>  <span class="st">&quot;L&quot;</span>, <span class="dv">71</span>, <span class="dv">91</span>,</span>
+<span id="cb7-25"><a href="chutes-and-ladders.html#cb7-25"></a>  <span class="st">&quot;L&quot;</span>, <span class="dv">80</span>, <span class="dv">100</span>,</span>
+<span id="cb7-26"><a href="chutes-and-ladders.html#cb7-26"></a>  <span class="st">&quot;C&quot;</span>, <span class="dv">16</span>, <span class="dv">6</span>,</span>
+<span id="cb7-27"><a href="chutes-and-ladders.html#cb7-27"></a>  <span class="st">&quot;C&quot;</span>, <span class="dv">47</span>, <span class="dv">26</span>,</span>
+<span id="cb7-28"><a href="chutes-and-ladders.html#cb7-28"></a>  <span class="st">&quot;C&quot;</span>, <span class="dv">49</span>, <span class="dv">11</span>,</span>
+<span id="cb7-29"><a href="chutes-and-ladders.html#cb7-29"></a>  <span class="st">&quot;C&quot;</span>, <span class="dv">56</span>, <span class="dv">53</span>,</span>
+<span id="cb7-30"><a href="chutes-and-ladders.html#cb7-30"></a>  <span class="st">&quot;C&quot;</span>, <span class="dv">62</span>, <span class="dv">19</span>,</span>
+<span id="cb7-31"><a href="chutes-and-ladders.html#cb7-31"></a>  <span class="st">&quot;C&quot;</span>, <span class="dv">64</span>, <span class="dv">60</span>,</span>
+<span id="cb7-32"><a href="chutes-and-ladders.html#cb7-32"></a>  <span class="st">&quot;C&quot;</span>, <span class="dv">87</span>, <span class="dv">24</span>,</span>
+<span id="cb7-33"><a href="chutes-and-ladders.html#cb7-33"></a>  <span class="st">&quot;C&quot;</span>, <span class="dv">93</span>, <span class="dv">73</span>,</span>
+<span id="cb7-34"><a href="chutes-and-ladders.html#cb7-34"></a>  <span class="st">&quot;C&quot;</span>, <span class="dv">95</span>, <span class="dv">75</span>,</span>
+<span id="cb7-35"><a href="chutes-and-ladders.html#cb7-35"></a>  <span class="st">&quot;C&quot;</span>, <span class="dv">98</span>, <span class="dv">78</span></span>
+<span id="cb7-36"><a href="chutes-and-ladders.html#cb7-36"></a>)</span>
+<span id="cb7-37"><a href="chutes-and-ladders.html#cb7-37"></a></span>
+<span id="cb7-38"><a href="chutes-and-ladders.html#cb7-38"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(df_special)) {</span>
+<span id="cb7-39"><a href="chutes-and-ladders.html#cb7-39"></a>  T_matrix[df_special<span class="op">$</span>to[i]<span class="op">+</span><span class="dv">1</span>,] &lt;-<span class="st"> </span>T_matrix[df_special<span class="op">$</span>to[i]<span class="op">+</span><span class="dv">1</span>,] <span class="op">+</span><span class="st"> </span>T_matrix[df_special<span class="op">$</span>from[i]<span class="op">+</span><span class="dv">1</span>,]</span>
+<span id="cb7-40"><a href="chutes-and-ladders.html#cb7-40"></a>  T_matrix[df_special<span class="op">$</span>from[i]<span class="op">+</span><span class="dv">1</span>,] &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb7-41"><a href="chutes-and-ladders.html#cb7-41"></a>}</span></code></pre></div>
+<p>We can then simulate a turn in the game simply by multiplying our state vector by the transition matrix. After one turn we have the following:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="chutes-and-ladders.html#cb8-1"></a>state &lt;-<span class="st"> </span>state0</span>
+<span id="cb8-2"><a href="chutes-and-ladders.html#cb8-2"></a>state &lt;-<span class="st"> </span>T_matrix <span class="op">%*%</span><span class="st"> </span>state</span>
+<span id="cb8-3"><a href="chutes-and-ladders.html#cb8-3"></a><span class="kw">as.numeric</span>(state)</span></code></pre></div>
+<pre><code>##   [1] 0.0000000 0.0000000 0.1666667 0.1666667 0.0000000 0.1666667 0.1666667
+##   [8] 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000
+##  [15] 0.1666667 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000
+##  [22] 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000
+##  [29] 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000
+##  [36] 0.0000000 0.0000000 0.0000000 0.1666667 0.0000000 0.0000000 0.0000000
+##  [43] 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000
+##  [50] 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000
+##  [57] 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000
+##  [64] 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000
+##  [71] 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000
+##  [78] 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000
+##  [85] 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000
+##  [92] 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000
+##  [99] 0.0000000 0.0000000 0.0000000</code></pre>
+<p>We have a 1/6 chance of ending up in spaces: 2, 3, 5, 14, 38.</p>
+<p>When we take the next step, these probabilities start to spread out:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="chutes-and-ladders.html#cb10-1"></a>state &lt;-<span class="st"> </span>T_matrix <span class="op">%*%</span><span class="st"> </span>state</span>
+<span id="cb10-2"><a href="chutes-and-ladders.html#cb10-2"></a><span class="kw">as.numeric</span>(state)</span></code></pre></div>
+<pre><code>##   [1] 0.00000000 0.00000000 0.00000000 0.02777778 0.00000000 0.05555556
+##   [7] 0.11111111 0.11111111 0.11111111 0.00000000 0.05555556 0.05555556
+##  [13] 0.02777778 0.00000000 0.05555556 0.02777778 0.00000000 0.02777778
+##  [19] 0.02777778 0.02777778 0.02777778 0.00000000 0.00000000 0.00000000
+##  [25] 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000
+##  [31] 0.00000000 0.08333333 0.00000000 0.00000000 0.00000000 0.00000000
+##  [37] 0.00000000 0.00000000 0.00000000 0.02777778 0.02777778 0.02777778
+##  [43] 0.02777778 0.02777778 0.02777778 0.00000000 0.00000000 0.00000000
+##  [49] 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000
+##  [55] 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000
+##  [61] 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000
+##  [67] 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000
+##  [73] 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000
+##  [79] 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000
+##  [85] 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000
+##  [91] 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000
+##  [97] 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000</code></pre>
+<p>They start to reflect the various ways the game can play out based upon our first roll and second roll. And of course, we could find the probabilities describing the board after N turns with the simple equation:</p>
+<p><span class="math display">\[ x_N = T^N x_0 \]</span></p>
+</div>
+<div id="statistics" class="section level2">
+<h2><span class="header-section-number">8.3</span> Statistics</h2>
+<p>We can now ask ourselves questions such as: how many turns will it take before we have a 50% chance of ending the game? (i.e. what is the median length of a 1 player game?)</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="chutes-and-ladders.html#cb12-1"></a>state &lt;-<span class="st"> </span>state0</span>
+<span id="cb12-2"><a href="chutes-and-ladders.html#cb12-2"></a>n_steps &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb12-3"><a href="chutes-and-ladders.html#cb12-3"></a></span>
+<span id="cb12-4"><a href="chutes-and-ladders.html#cb12-4"></a><span class="cf">while</span>(<span class="ot">TRUE</span>) {</span>
+<span id="cb12-5"><a href="chutes-and-ladders.html#cb12-5"></a>  state &lt;-<span class="st"> </span>T_matrix <span class="op">%*%</span><span class="st"> </span>state</span>
+<span id="cb12-6"><a href="chutes-and-ladders.html#cb12-6"></a>  n_steps &lt;-<span class="st"> </span>n_steps <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb12-7"><a href="chutes-and-ladders.html#cb12-7"></a>  </span>
+<span id="cb12-8"><a href="chutes-and-ladders.html#cb12-8"></a>  <span class="cf">if</span> (state[<span class="dv">101</span>] <span class="op">&gt;=</span><span class="st"> </span><span class="fl">0.5</span>) {<span class="cf">break</span>}</span>
+<span id="cb12-9"><a href="chutes-and-ladders.html#cb12-9"></a>}</span>
+<span id="cb12-10"><a href="chutes-and-ladders.html#cb12-10"></a></span>
+<span id="cb12-11"><a href="chutes-and-ladders.html#cb12-11"></a><span class="kw">cat</span>(<span class="kw">paste0</span>(<span class="st">&quot;Median Game Length = &quot;</span>, n_steps))</span></code></pre></div>
+<pre><code>## Median Game Length = 32</code></pre>
+<p>While it is possible in theory for games to go on forever (you can always keep hitting those slides), we can put an upper bound on what is practical by measuring how many turns before we have a 99.9999% chance of finishing the game:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="chutes-and-ladders.html#cb14-1"></a>state &lt;-<span class="st"> </span>state0</span>
+<span id="cb14-2"><a href="chutes-and-ladders.html#cb14-2"></a>n_steps &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb14-3"><a href="chutes-and-ladders.html#cb14-3"></a></span>
+<span id="cb14-4"><a href="chutes-and-ladders.html#cb14-4"></a><span class="cf">while</span>(<span class="ot">TRUE</span>) {</span>
+<span id="cb14-5"><a href="chutes-and-ladders.html#cb14-5"></a>  state &lt;-<span class="st"> </span>T_matrix <span class="op">%*%</span><span class="st"> </span>state</span>
+<span id="cb14-6"><a href="chutes-and-ladders.html#cb14-6"></a>  n_steps &lt;-<span class="st"> </span>n_steps <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb14-7"><a href="chutes-and-ladders.html#cb14-7"></a>  </span>
+<span id="cb14-8"><a href="chutes-and-ladders.html#cb14-8"></a>  <span class="cf">if</span> (state[<span class="dv">101</span>] <span class="op">&gt;=</span><span class="st"> </span><span class="fl">0.999999</span>) {<span class="cf">break</span>}</span>
+<span id="cb14-9"><a href="chutes-and-ladders.html#cb14-9"></a>}</span>
+<span id="cb14-10"><a href="chutes-and-ladders.html#cb14-10"></a></span>
+<span id="cb14-11"><a href="chutes-and-ladders.html#cb14-11"></a><span class="kw">cat</span>(<span class="kw">paste0</span>(<span class="st">&quot;Max Game Length = &quot;</span>, n_steps))</span></code></pre></div>
+<pre><code>## Max Game Length = 352</code></pre>
+<p>It is very unlikely that a 1-player game would go beyond 300 turns.</p>
+<p>With this upper bound in mind lets build a vector containing the probabilities of ending the game at each turn:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="chutes-and-ladders.html#cb16-1"></a>state &lt;-<span class="st"> </span>state0</span>
+<span id="cb16-2"><a href="chutes-and-ladders.html#cb16-2"></a>cdf_finish &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>,<span class="dv">1000</span>)</span>
+<span id="cb16-3"><a href="chutes-and-ladders.html#cb16-3"></a></span>
+<span id="cb16-4"><a href="chutes-and-ladders.html#cb16-4"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>) {</span>
+<span id="cb16-5"><a href="chutes-and-ladders.html#cb16-5"></a>  state &lt;-<span class="st"> </span>T_matrix <span class="op">%*%</span><span class="st"> </span>state</span>
+<span id="cb16-6"><a href="chutes-and-ladders.html#cb16-6"></a>  cdf_finish[i] &lt;-<span class="st"> </span>state[<span class="dv">101</span>]</span>
+<span id="cb16-7"><a href="chutes-and-ladders.html#cb16-7"></a>}</span>
+<span id="cb16-8"><a href="chutes-and-ladders.html#cb16-8"></a></span>
+<span id="cb16-9"><a href="chutes-and-ladders.html#cb16-9"></a>pdf_finish &lt;-<span class="st"> </span><span class="kw">diff</span>(<span class="kw">c</span>(<span class="dv">0</span>, cdf_finish))</span>
+<span id="cb16-10"><a href="chutes-and-ladders.html#cb16-10"></a><span class="kw">plot</span>(pdf_finish, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">300</span>))</span></code></pre></div>
+<p><img src="gambling-stats_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>We can now answer all kinds of fun questions. What is the average length of a 1-player game:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="chutes-and-ladders.html#cb17-1"></a>result &lt;-<span class="st"> </span><span class="kw">weighted.mean</span>(<span class="dt">x=</span><span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>, <span class="dt">w=</span>pdf_finish)</span>
+<span id="cb17-2"><a href="chutes-and-ladders.html#cb17-2"></a><span class="kw">cat</span>(<span class="kw">paste0</span>(<span class="st">&quot;Average Length of Game = &quot;</span>, result))</span></code></pre></div>
+<pre><code>## Average Length of Game = 39.225122308183</code></pre>
+<p>This is exactly the answer that was given in the paper. (Hoo-Wah!)</p>
+<p>But how many times do you play Chutes and Ladders by yourself? Let’s tackle a topic that wasn’t covered in the paper: the expected length of multi-player games. We can calculate this by producing a probability distribution indicating the probability that none of the players have finished the game and then taking the complement of this:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="chutes-and-ladders.html#cb19-1"></a>cdf_still_playing &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span>cdf_finish</span>
+<span id="cb19-2"><a href="chutes-and-ladders.html#cb19-2"></a>cdf_still_playing2 &lt;-<span class="st"> </span>cdf_still_playing <span class="op">^</span><span class="st"> </span><span class="dv">2</span></span>
+<span id="cb19-3"><a href="chutes-and-ladders.html#cb19-3"></a>cdf_finish2 &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span>cdf_still_playing2</span>
+<span id="cb19-4"><a href="chutes-and-ladders.html#cb19-4"></a>pdf_finish2 &lt;-<span class="st"> </span><span class="kw">diff</span>(<span class="kw">c</span>(<span class="dv">0</span>, cdf_finish2))</span>
+<span id="cb19-5"><a href="chutes-and-ladders.html#cb19-5"></a><span class="kw">plot</span>(pdf_finish2)</span></code></pre></div>
+<p><img src="gambling-stats_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="chutes-and-ladders.html#cb20-1"></a>result &lt;-<span class="st"> </span><span class="kw">weighted.mean</span>(<span class="dt">x=</span><span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>, <span class="dt">w=</span>pdf_finish2)</span>
+<span id="cb20-2"><a href="chutes-and-ladders.html#cb20-2"></a><span class="kw">cat</span>(<span class="kw">paste0</span>(<span class="st">&quot;Average Length of 2 Player Game = &quot;</span>, result))</span></code></pre></div>
+<pre><code>## Average Length of 2 Player Game = 26.3309566420474</code></pre>
+<p>We can also do the same for any number of players:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="chutes-and-ladders.html#cb22-1"></a>get_average_game_length &lt;-<span class="st"> </span><span class="cf">function</span>(n_players) {</span>
+<span id="cb22-2"><a href="chutes-and-ladders.html#cb22-2"></a>  cdf_still_playing &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span>cdf_finish</span>
+<span id="cb22-3"><a href="chutes-and-ladders.html#cb22-3"></a>  cdf_still_playing_n &lt;-<span class="st"> </span>cdf_still_playing <span class="op">^</span><span class="st"> </span>n_players</span>
+<span id="cb22-4"><a href="chutes-and-ladders.html#cb22-4"></a>  cdf_finish_n &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span>cdf_still_playing_n</span>
+<span id="cb22-5"><a href="chutes-and-ladders.html#cb22-5"></a>  pdf_finish_n &lt;-<span class="st"> </span><span class="kw">diff</span>(<span class="kw">c</span>(<span class="dv">0</span>, cdf_finish_n))</span>
+<span id="cb22-6"><a href="chutes-and-ladders.html#cb22-6"></a>  <span class="kw">weighted.mean</span>(<span class="dt">x=</span><span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>, <span class="dt">w=</span>pdf_finish_n)</span>
+<span id="cb22-7"><a href="chutes-and-ladders.html#cb22-7"></a>}</span>
+<span id="cb22-8"><a href="chutes-and-ladders.html#cb22-8"></a></span>
+<span id="cb22-9"><a href="chutes-and-ladders.html#cb22-9"></a>n_players &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span></span>
+<span id="cb22-10"><a href="chutes-and-ladders.html#cb22-10"></a>avg_game_length &lt;-<span class="st"> </span><span class="kw">sapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, get_average_game_length)</span>
+<span id="cb22-11"><a href="chutes-and-ladders.html#cb22-11"></a></span>
+<span id="cb22-12"><a href="chutes-and-ladders.html#cb22-12"></a>df_result &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</span>
+<span id="cb22-13"><a href="chutes-and-ladders.html#cb22-13"></a>  <span class="dt">n_players =</span> n_players,</span>
+<span id="cb22-14"><a href="chutes-and-ladders.html#cb22-14"></a>  <span class="dt">avg_game_turns =</span> avg_game_length,</span>
+<span id="cb22-15"><a href="chutes-and-ladders.html#cb22-15"></a>  <span class="dt">avg_game_minutes =</span> avg_game_length <span class="op">*</span><span class="st"> </span>n_players <span class="op">*</span><span class="st"> </span><span class="dv">10</span> <span class="op">/</span><span class="st"> </span><span class="dv">60</span></span>
+<span id="cb22-16"><a href="chutes-and-ladders.html#cb22-16"></a>)</span>
+<span id="cb22-17"><a href="chutes-and-ladders.html#cb22-17"></a></span>
+<span id="cb22-18"><a href="chutes-and-ladders.html#cb22-18"></a>knitr<span class="op">::</span><span class="kw">kable</span>(df_result)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">n_players</th>
+<th align="right">avg_game_turns</th>
+<th align="right">avg_game_minutes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">39.22512</td>
+<td align="right">6.537520</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">26.33096</td>
+<td align="right">8.776986</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">21.72805</td>
+<td align="right">10.864025</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">19.26697</td>
+<td align="right">12.844650</td>
+</tr>
+</tbody>
+</table>
+<p>In the table above we have added a column for the expected game length in minutes. This is assuming that each player takes 10 seconds to move. Notice that even though the game with more players ends in fewer turns, these games actually take longer because more people have to move on each turn.</p>
+<p>So next time someone asks if you want to play Chutes and Ladders, pull up these figures and you’ll know what you’re signing up for (on average). Let’s just hope you don’t get stuck in one of those rare 300+ turn games!</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="other-games.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="war.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["gambling-stats.pdf", "gambling-stats.epub"],
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

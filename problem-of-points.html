@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Gambling Statistics</title>
+  <title>2 Problem of Points | Gambling Statistics</title>
   <meta name="description" content="Notes on topics pertaining to gambling and expected outcomes using statistics and computer analysis." />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Gambling Statistics" />
+  <meta property="og:title" content="2 Problem of Points | Gambling Statistics" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Gambling Statistics" />
+  <meta name="twitter:title" content="2 Problem of Points | Gambling Statistics" />
   
   <meta name="twitter:description" content="Notes on topics pertaining to gambling and expected outcomes using statistics and computer analysis." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="flipping-a-coin.html"/>
+<link rel="prev" href="flipping-a-coin.html"/>
+<link rel="next" href="roulette.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -217,27 +217,91 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Gambling Statistics</h1>
-<p class="author"><em>Dan Rogers</em></p>
-<p class="date"><em>2020-10-22</em></p>
+<div id="problem-of-points" class="section level1">
+<h1><span class="header-section-number">2</span> Problem of Points</h1>
+<div id="overview-1" class="section level2">
+<h2><span class="header-section-number">2.1</span> Overview</h2>
+<p>My brother once told me about a story from the early days of probability theory. It involved Blaise Pascal and Pierre de Fermat writing letters to each other in 1654 about how to settle a theoretical game that was prematurely ended before a winner could be declared. In one variation of the game, two gamblers have each wagered 32 pistoles (gold pieces) in a game where the first person to win 3 rounds wins. Each player has a 50/50 chance of winning each round, but the game is prematurely ended at a point where one player has 2 wins and the other has 1 win. The problem is: what is the fairest way to divide the 64 pistoles?</p>
+<p>This question of how to divide the winnings of an unfinished game is called “the problem of points” or “the division of the stakes”. There is a good Wikipedia article on it <a href="https://en.wikipedia.org/wiki/Problem_of_points">here</a>. It is mentioned that a naive solution such as “divide the winnings based on the proportion each player has won so far” is flawed because a player who has won only a single game will get the entire reward if his opponent has not won at all. This will be true even if there are many games left to play such that the overall advantage the first player has won is negligible.</p>
+<p>Intuitively, it is reasoned that the answer must be based on the number of games left to play and the relative advantage one player has over the other. For instance, in a game to 10, if the first player has won 7 times and the second player has won 5 times, the situation is essentially the same as a game to 20 where the first player has 17 and the second has 15. In each case the first player needs to win 5 games to win and the second player needs to win 7. These are the numbers that intuitively should matter and the division of winnings should be the same in both of these scenarios.</p>
 </div>
-<div id="introduction" class="section level1 unnumbered">
-<h1>Introduction</h1>
-<p>I remember being about 16 years old, spending a few weeks each summer at Devil’s Lake with my grandparents. One of the fun things we would do is get the felt casino cover for the table out. It had a Blackjack table on one side and Craps on the other. Grandpa would be the house, calling out our bets, informing us of bad bets, and paying out the winner.</p>
-<p>During one of those summers, I had just learned about calculating sums for inifinite series. I remember trying to calculate the odds on craps, and realizing it was an infinite series that could be summed just like we had learned in class. This was really quite amazing. While it was widely believed we would never actually use the math we were learning in class, here was a great example of how it can be used in real life</p>
-<p>That example of using math to calculate the expected returns in craps stands out in my mind as something that really drove my interest in gambling and applying statistics to different games. It wasn’t too long after that I was also building computer simulations for games like Blackjack and Poker, trying to re-create basic strategy and the different statistical tables I had seen for Texas Hold ’Em.</p>
-<p>Now I’ll be the first to admit: this is well-trodden ground that doesn’t require any new work or discovery by me. The <a href="https://wizardofodds.com/">Wizard of Odds</a> has already calculated statistics and expected returns for pretty much any game you can imagine. There really isn’t any value in me going through and calculating them all myself… except that I like it. I think it’s fun, and I’ve decided that is reason enough.</p>
-<p>I intend to put my notes here as I accumulate them, adding a chapter for each game or subject. There’s even a chance that this could turn into a good reference for statistics applied to gambling games. I intend to start with the most basic games and build up to the more complex. So maybe there is some value in arranging the content in this way and emphasizing the math that gets you to the answer rather than just the result. But really, when it comes down to it, I just find this a fun way to spend time, and that is all that matters.</p>
+<div id="solution" class="section level2">
+<h2><span class="header-section-number">2.2</span> Solution</h2>
+<p>The solution can be found by exploring every possible way that the remaining games could be played out and seeing how many of these result in each player winning. This was the method that Fermat used in his solution. We can write a simple recursive function in Python to compute this:</p>
+<pre><code>def get_expected_value(p1_wins, p2_wins, goal):
+    &quot;&quot;&quot;Return the probability that player 1 wins given that player 1 currently
+    has p1_wins and player 2 has p2_wins and that the game is won when they
+    reach &quot;goal&quot; number of wins.
+    &quot;&quot;&quot;
 
+    if (p1_wins == goal):
+        return 1
+    elif (p2_wins == goal):
+        return 0
+
+    p1 = get_expected_value(p1_wins + 1, p2_wins, goal)
+    p2 = get_expected_value(p1_wins, p2_wins + 1, goal)
+
+    return (p1 + p2) / 2</code></pre>
+<p>This yields the following solutions for some of the cases we have discussed:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">P1 Wins</th>
+<th align="left">P2 Wins</th>
+<th align="left">Goal</th>
+<th align="right">Pr(P1 Wins All)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">7</td>
+<td align="left">5</td>
+<td align="left">10</td>
+<td align="right">77.34375%</td>
+</tr>
+<tr class="even">
+<td align="left">17</td>
+<td align="left">15</td>
+<td align="left">20</td>
+<td align="right">77.34375%</td>
+</tr>
+<tr class="odd">
+<td align="left">2</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="right">75%</td>
+</tr>
+<tr class="even">
+<td align="left">5</td>
+<td align="left">3</td>
+<td align="left">6</td>
+<td align="right">87.5%</td>
+</tr>
+</tbody>
+</table>
+<p>In general, you can also use the following equation to find the probability of player 1 winning if player 1 has <span class="math inline">\(s_1\)</span> rounds left to win and player 2 has <span class="math inline">\(s_2\)</span> rounds left to win where <span class="math inline">\(p_1\)</span> is the probability of player 1 winning a game and <span class="math inline">\(p_2\)</span> is the probability of player 2 winning:</p>
+<p><span class="math display">\[ \sum\limits_{k=s_1}^{s_1+s_2-1}{\frac{s_1+s_2-1}{k}(p_{1})^{k}(p_{2})^{s_1+s_2-1-k}} \]</span></p>
+</div>
+<div id="inferring-a-players-advantage" class="section level2">
+<h2><span class="header-section-number">2.3</span> Inferring a Player’s Advantage</h2>
+<p>In the classical form of the problem, we assume that each player has an equal chance of winning a round, but what if that was not the case? If we are playing to 1,000 and one player has won 750 times to the other player’s 100, should we infer that the first player is actually better than the second and more likely to win future matches?</p>
+<p>This problem is essentially identical to the coin flipping problem. We want to estimate the probability of each player winning future rounds based on their past performance. We can use the maximum likelihood estimate that simply uses the percentage of past wins as the predictor of future probabilities. We could also start with a Bayesian prior and update that based upon the observed data. In this case there are an infinite number of ways to setup the prior probabilities, and thus an infinite number of ways to solve this problem based upon not only the observed data but our prior expectations about how fairly matched the players are.</p>
+</div>
+<div id="historical-notes" class="section level2">
+<h2><span class="header-section-number">2.4</span> Historical Notes</h2>
+<p>The actual text of the letters between Pascal and Fermat can be found <a href="https://www.york.ac.uk/depts/maths/histstat/pascal.pdf">here</a>. There is also a good overview in the American Physical Society’s article “This Month in Physics History” subtitled “July 1654: Pascal’s Letters to Fermat on the Problem of Points”(Volume 18, Number 7, July 2009). This goes into more detail about how the problem was first proposed in 1494 by an Italian monk named Luca Paccioli. The question was being pondered in 1654 by an amateur mathematician who enjoyed gambling named Antoine Gombaud. It was Gombaud who asked his friend Pascal, who also had taken an interest in gambling, and it was this question that spurred the letters.</p>
+<p>The original question that Paccioli asked concerned a game of “balla”, which requires six goals to win the game, shoul d be settled if the game is stopped when one player has 5 goals and the other has 3.</p>
+
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="flipping-a-coin.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="flipping-a-coin.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="roulette.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
