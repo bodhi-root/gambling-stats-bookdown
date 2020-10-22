@@ -12,4 +12,4 @@ I think bookdown will meet these needs, allowing me to build the content of the 
 
 When creating this book I began with the simple "bookdown-demo", deleted some files, altered some titles, and then started writing.
 
-NOTE: [Cool reference on equations in R Markdown](https://www.montana.edu/rotella/documents/502/MarkdownEqnExamples.Rmd)
+NOTE: [Cool reference on equations in R Markdown](https://www.montana.edu/rotella/documents/502/MarkdownEqnExamples.Rmd) and a [Visual Editor](http://visualmatheditor.equatheque.net/VisualMathEditor.html).

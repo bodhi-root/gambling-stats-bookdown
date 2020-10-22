@@ -34,6 +34,6 @@ $$ Expected Value = \frac{12}{38} * (\$2) + \frac{26}{38} * (-\$1) = -\frac{2}{3
 
 So far we have analyzed "American" roulette, which has both zero and double zero.  "European" roulette instead only has 1 zero.  Intuitively, we know that this will improve our odds. Specifically, we find that a single number bet now has the expected value:
 
-$$ Expected Value = \frac{1}{37} * (\$1) + \frac{36}{37} * (-\$1) = -\frac{1}{37} = 0.02702703 $$
+$$ Expected Value = \frac{1}{37} * (\$1) + \frac{36}{37} * (-\$1) = -\frac{1}{37} = -0.02702703 $$
 
 The house edge has been cut almost in half, from 5.26% to 2.70%.  As with "American" roulette, all of the other bets will have this same expected value and house edge.  Obviously, it is advantageous to players to play at "European" style tables whenever possible.

@@ -1,5 +1,7 @@
 # Baccarat
 
+![Baccarat Table](images/baccarat.jpg)
+
 ## Overview
 
 Baccarat is often mentioned as a classy game (James Bond plays it in movies) and one where billionaire "whales" can win (or lose) millions of dollars in a single night.  It also has one of the smallest house edges in the casino.  According to [Wikipedia](https://en.wikipedia.org/wiki/Baccarat_(card_game)) it is played with 6-8 decks and follows a somewhat complicated set of rules for dealing cards to a "player" and a "banker".  Observers of the game bet on whether the "player" or "banker" will win.  They also can bet on a "tie".
@@ -7,7 +9,7 @@ Baccarat is often mentioned as a classy game (James Bond plays it in movies) and
 According to Wikipedia, the typical payouts and house advantages for these scenarios (with a 8-deck shoe) are below:
 
 | Outcome     |   Payout | House Edge |
-|-------------|---------:|-----------:|
+|:------------|---------:|-----------:|
 | Banker Wins | 19-to-20 |      1.06% |
 | Player Wins |   1-to-1 |      1.24% |
 | Tie         |   8-to-1 |      14.4% |
@@ -17,7 +19,7 @@ According to Wikipedia, the typical payouts and house advantages for these scena
 I wrote a Baccarat simulator in Java to confirm these numbers.  The simulator played 1 billion hands of Baccarat following the classic "Punto Banco" rules as described on Wikipedia.  This took about 4 minutes to run.  The results were:
 
 | Winner      |   Occurrences |   Percentage |
-|-------------|--------------:|-------------:|
+|:------------|--------------:|-------------:|
 | Banker Wins |   458,618,223 |  45.8618223% |
 | Player Wins |   446,309,890 |  44.6309890% |
 | Tie         |    95,071,887 |   9.5071887% |
@@ -26,7 +28,7 @@ I wrote a Baccarat simulator in Java to confirm these numbers.  The simulator pl
 To calculate the expected return and house advantage we need to include the payouts that result from the bets for each scenario.  This is shown in the table below:
 
 | Outcome     |   Return(B) | Return(P) | Return(T) |
-|-------------|------------:|----------:|----------:|
+|:------------|------------:|----------:|----------:|
 | Banker Wins |        1.95 |         0 |         0 |
 | Player Wins |           0 |      2.00 |         0 |
 | Tie         |        1.00 |      1.00 |      9.00 |
@@ -36,7 +38,7 @@ Return(B) indicates the money you receive in each scenario if you bet on the ban
 When multiplying these returns by the probability of each scenario, the expected returns and house advantages for each bet are:
 
 | Bet      | Expected Return | House Advantage |
-|----------|----------------:|----------------:|
+|:---------|----------------:|----------------:|
 | Banker   |          98.94% |           1.06% |
 | Player   |          98.77% |           1.23% |
 | Tie      |          85.56% |          14.44% |
@@ -46,7 +48,7 @@ These match the results from Wikipedia to within +/- .01%.
 If we wanted to get fancy, we could calculate confidence intervals around our estimates.  To do this, we make use of the fact that the Bernoulli distribution has a variance of "p(1-p)".  This means that when calculating p as an average of N observations we would expect a standard deviation of "p(1-p) / sqrt(N)" around our estimate of the mean.  This allows us to create the following confidence intervals around our probabilities:
 
 | Outcome	    |       Estimate |  Stdev(Estimate) | Min(Estimate) | Max(Estimate) |
-|-------------|---------------:|-----------------:|--------------:|--------------:|
+|:------------|---------------:|-----------------:|--------------:|--------------:|
 | Banker Wins |	   45.8618223% |     0.00157571%  |	  45.8570952% |   45.8665494% |
 | Player Wins |	   44.6309890% |     0.001572%    |	  44.6262730% |    44.635705% |
 | Tie	        |     9.5071887% |     0.000927541% |    9.5044061% |    9.5099713% |
@@ -56,7 +58,7 @@ The Min and Max values of the estimate are calculated using 3 standard deviation
 We can use these min and max estimates to calculate the payouts.  This time we get:
 
 | Bet      | Expected Return | House Advantage |
-|----------|----------------:|----------------:|
+|:---------|----------------:|----------------:|
 | Banker   |  98.93 - 98.95% |    1.05 - 1.07% |
 | Player   |  98.76 - 98.78% |    1.22 - 1.24% |
 | Tie      |  85.54 - 85.59% |  14.41 - 14.46% |
