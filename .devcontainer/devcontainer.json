@@ -1,10 +1,10 @@
 {
     "name": "Public - Quarto Codespaces",
-    "image": "ghcr.io/mcanouil/quarto-codespaces:latest",
-    //"build": {
-    //  "dockerfile": "Dockerfile",
-    //  "context": "."
-    //},
+    //"image": "ghcr.io/mcanouil/quarto-codespaces:latest",
+    "build": {
+      "dockerfile": "Dockerfile",
+      "context": "."
+    },
     "remoteUser": "vscode",
     "features": {
       "ghcr.io/rocker-org/devcontainer-features/quarto-cli:1": {
