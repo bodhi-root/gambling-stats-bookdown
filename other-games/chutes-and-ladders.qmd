@@ -1,4 +1,4 @@
-# Chutes and Ladders
+# Chutes and Ladders {#chutes-and-ladders}
 
 ![Chutes and Ladders Board](../images/chutes-and-ladders.png)
 
@@ -122,7 +122,7 @@ while True:
   if state[100] >= 0.5:
     break
 
-print(f"Median Game Length = {n_steps}")
+print(f"Median Game Length = {n_steps}") # prints 32
 ```
 
 If you play the game by yourself, you will have a 50% chance of finishing the game after 32 turns.
@@ -162,55 +162,82 @@ for i in range(max_turns):
 
 pdf_finish = np.concat(([0], np.diff(cdf_finish)))
 
-import seaborn as sns
-sns.scatterplot(x=np.arange(max_turns+1), y=pdf_finish, color="black", alpha=1.0, edgecolor='none')
+import matplotlib.pyplot as plt
+
+def plot_pmf(pmf, title, xlabel):
+  """Plots a discrete probability mass function. `pmf` is an array
+  of probability where index `i` represents the probability of `i`.
+  """
+  plt.figure(figsize=(8, 4))
+  #plt.stem(np.arange(len(pmf)), pmf, markerfmt='none') 
+  plt.scatter(np.arange(len(pmf)), pmf, facecolors='none', edgecolors='black')
+  plt.title(title)
+  plt.xlabel(xlabel)
+  plt.ylabel("probability")
+  plt.show()
+
+plot_pmf(pdf_finish, "Probability of finishing a 1-player game in a specific number of turns", "turns")
 ```
 
 We can now answer all kinds of fun questions.  What is the average length of a 1-player game:
 
 ```{python}
-result <- weighted.mean(x=1:1000, w=pdf_finish)
-cat(paste0("Average Length of Game = ", result))
+result = np.average(np.arange(len(pdf_finish)), weights=pdf_finish)
+print(f"Average Length of Game = {result}")
 ```
 
-This is exactly the answer that was given in the paper. (Hoo-Wah!)
+The average game length is calculated to be 39.2 turns. This is exactly the answer that was given in the paper. (Hoo-Wah!) Actually, we match the exact fraction they give out to 9 decimal places: 39.225122308. After this, their answer is slightly higher than ours. This is likely due to us truncating our games after 1000 turns instead of extending them towards infinity. It may also be influenced by computational rounding.
+
+## Multi-Player Games
 
 But how many times do you play Chutes and Ladders by yourself?  Let's tackle a topic that wasn't covered in the paper: the expected length of multi-player games. We can calculate this by producing a probability distribution indicating the probability that none of the players have finished the game and then taking the complement of this:
 
 ```{python}
-cdf_still_playing <- 1 - cdf_finish
-cdf_still_playing2 <- cdf_still_playing ^ 2
-cdf_finish2 <- 1 - cdf_still_playing2
-pdf_finish2 <- diff(c(0, cdf_finish2))
-plot(pdf_finish2)
+cdf_still_playing = 1 - cdf_finish
+cdf_still_playing2 = cdf_still_playing ** 2
+cdf_finish2 = 1 - cdf_still_playing2
+pdf_finish2 = np.concat(([0], np.diff(cdf_finish2)))
+
+plot_pmf(pdf_finish2, "Probability of finishing a 2-player game in a specific number of turns", "turns")
 ```
+
+As before, we can use this probability distribution to calculate the expected length of the game:
+
 ```{python}
-result <- weighted.mean(x=1:1000, w=pdf_finish2)
-cat(paste0("Average Length of 2 Player Game = ", result))
+result = np.average(np.arange(len(pdf_finish2)), weights=pdf_finish2)
+print(f"Average Length of Game = {result}")
 ```
+
+We find this to be 26.3 turns.
 
 We can also do the same for any number of players:
 
-```{python table-chutes-and-ladders-summary}
-get_average_game_length <- function(n_players) {
-  cdf_still_playing <- 1 - cdf_finish
-  cdf_still_playing_n <- cdf_still_playing ^ n_players
-  cdf_finish_n <- 1 - cdf_still_playing_n
-  pdf_finish_n <- diff(c(0, cdf_finish_n))
-  weighted.mean(x=1:1000, w=pdf_finish_n)
-}
+```{python}
+#| output: false
 
-n_players <- 1:4
-avg_game_length <- sapply(1:4, get_average_game_length)
+def get_average_game_length(n_players, cdf_finish):
+  """Calculate the average number of turns a game will last with
+  `n_players` playing. `cdf_finish` gives the CDF for the number
+  of turns it will take one player to finish the game.
+  """
+  cdf_still_playing = 1 - cdf_finish
+  cdf_still_playing_n = cdf_still_playing ** n_players
+  cdf_finish_n = 1 - cdf_still_playing_n
+  pdf_finish_n = np.concat(([0], np.diff(cdf_finish_n)))
+  return np.average(np.arange(len(pdf_finish_n)), weights=pdf_finish_n)
 
-df_result <- data.frame(
-  n_players = n_players,
-  avg_game_turns = avg_game_length,
-  avg_game_minutes = avg_game_length * n_players * 10 / 60
-)
-
-knitr::kable(df_result)
+for n_players in range(1, 5):
+  avg_game_length = get_average_game_length(n_players, cdf_finish)
+  est_minutes = avg_game_length * n_players * 10 / 60
+  print(f"| {n_players} | {avg_game_length:.6f} | {est_minutes:.6f} |")
 ```
+
+| n_players | avg_game_turns | avg_game_minutes |
+|-----------|----------------|------------------|
+| 1         |      39.225122 |         6.537520 |
+| 2         |      26.330957 |         8.776986 |
+| 3         |      21.728051 |        10.864025 |
+| 4         |      19.266975 |        12.844650 |
 
 In the table above we have added a column for the expected game length in minutes.  This is assuming that each player takes 10 seconds to move.  Notice that even though the game with more players ends in fewer turns, these games actually take longer because more people have to move on each turn.
 

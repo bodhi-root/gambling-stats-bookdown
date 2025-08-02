@@ -26,5 +26,12 @@ format:
       - cosmo
       - brand
     css: styles.css
-  pdf:
-    documentclass: scrreprt
+  #pdf:
+  #  documentclass: scrreprt
+  
+#ERROR: pdf code above was throwing this error on 2025-08-02:
+# tlmgr: Remote database at https://mirrors.mit.edu/CTAN/systems/texlive/tlnet
+# (revision 75938 of the texlive-scripts package)
+# seems to be older than the local installation
+# (revision 75950 of texlive-scripts);
+# please use a different mirror and/or wait a day or two.

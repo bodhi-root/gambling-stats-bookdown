@@ -3,4 +3,6 @@
 /_book
 /site_libs
 /_scratch.ipynb
-/.quarto/
+/.quarto
+/index.tex
+/index.log
