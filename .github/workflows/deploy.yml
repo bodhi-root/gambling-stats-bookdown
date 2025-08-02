@@ -24,7 +24,7 @@ jobs:
           -v ${{ github.workspace }}:/workspace \
           -w /workspace \
           mycontainer \
-          bash -c "quarto render"
+          bash -c "pip install -r requirements.txt && quarto render"
     
     - name: Setup Pages
       id: pages
