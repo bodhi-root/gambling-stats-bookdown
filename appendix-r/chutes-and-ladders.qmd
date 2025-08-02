@@ -1,6 +1,6 @@
 # Chutes and Ladders
 
-![Chutes and Ladders Board](images/chutes-and-ladders.png)
+![Chutes and Ladders Board](../images/chutes-and-ladders.png)
 
 ## Overview
 
@@ -13,7 +13,9 @@ I remember when I was about 22, working at the University of Cincinnati, and thi
 
 Not only did this article provide an answer: 39.2 turns on average, it also provided an exact fractional representation of the expected game length:
 
-$$ \frac{225837582538403273407117496273279920181931269186581786048583}{5757472998140039232950575874628786131130999406013041613400} $$
+$$
+\frac{225837582538403273407117496273279920181931269186581786048583}{5757472998140039232950575874628786131130999406013041613400}
+$$
 
 I thought that was pretty bad-ass! The paper also explained how the entire game could be modeled as a "state-absorbing Markov chain", which sounded fun to work with. Of course, it wasn't enough just to get the answer.  I wanted to reproduce it myself and learn more about these Markov chains.  So that's exactly what I did.
 
@@ -24,6 +26,23 @@ A Markov process is a process whose future state is entirely determined by its c
 In Chutes-and-Ladders the current state can be modeled by a 101 element vector.  This vector represents the 100 positions on the board (labeled 1 to 100) and the starting position (position 0) which is off the board.  The player begins in position 0, so that we initialize our state to a vector of all zeroes except for a 1 in the first element.
 
 The transition matrix represents the roll of a die and what can happen to your player when that happens.  With a 6-sided die there is a 1/6 chance of rolling each number, and each number indicates the number of states you will advance.  Thus, if you are on space \#10 you have a 1/6 chance of being on space \#11 the next round, a 1/6 chance of being on space \#12, and so on through space \#16.  This would be true if there were no chutes or ladders.  Actually, there is a chute on space \#16 that takes you back to space \#6.  So the transition matrix would need to be adjusted to show that you actually have a 1/6 chance of going to space \#6 and a zero chance of going to \#16.  The R code below builds the appropriate initial state vector and transition matrix for the game:
+
+```{r}
+state0 <- c(1, rep(0, 100))
+
+T_matrix <- matrix(0, nrow=101, ncol=101)
+
+for (i in 0:101) {
+  for (j in 1:6) {
+    next_space <- i + j
+    if (next_space > 101) { # must land on last space exactly
+      next_space <- i
+    }
+    T_matrix[next_space, i] <- T_matrix[next_space, i] + 1/6
+  }
+}
+print(head(T_matrix, 10))
+```
 
 ```{r}
 state0 <- c(1, rep(0, 100))
@@ -87,7 +106,9 @@ as.numeric(state)
 
 They start to reflect the various ways the game can play out based upon our first roll and second roll.  And of course, we could find the probabilities describing the board after N turns with the simple equation:
 
-$$ x_N = T^N x_0 $$
+$$
+x_N = T^N x_0
+$$
 
 ## Statistics
 

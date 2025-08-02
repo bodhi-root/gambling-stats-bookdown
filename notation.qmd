@@ -1,0 +1,66 @@
+# Basic Notation
+
+## Probabilities
+
+A quick note on notation before we begin. When we talk about probabilities, we will denote the probability of a particular outcome as:
+
+$$
+P(outcome)
+$$
+
+A value of 0.5 indicates a probability of 50%. If we were to repeat the experiment many many times, we would expect this outcome to occur in about half of our trials.
+
+Sometimes we will want to get more specific and indicate what we are measuring and what outcomes are possible. We could use $X$ to indicate a random variable with different possible outcomes. Let's call these $outcome_1$, $outcome_2$, and so on. The probability of $X$ taking on a specific outcome can also be written as:
+
+$$
+P(X=outcome_1)
+$$
+
+If we know all possible outcomes, the probabilities should sum to 1. We can express this using the sum below which iterates over each outcome $i$ out of $I$ possible outcomes:
+
+$$
+\sum\limits_{i=1}^I P(X=outcome_i) = 1
+$$
+
+We may also want to specify a probability conditional upon some kind of assumption or model. This would be indicated as:
+
+$$
+P(X=outcome_i|A)
+$$
+
+or just
+
+$$
+P(outcome_i|A)
+$$
+
+Both of these mean the same thing. They express the probability that the random variable $X$ (which is implied in the second form but not explicitly called out) will be $outcome_i$ given a set of assumptions $A$.
+
+Other notation and concepts will be introduced as we need it. This should be enough to jump into the first chapter without confusion.
+
+## Expected Values
+
+The "expected value" is the mean or average outcome that we expect in a numerical variable. This is indicated as:
+
+$$
+E(X)
+$$
+
+As an example, if we number the sides of a die from 1 to 6 and roll the die repeatedly, the expected value is 3.5 (the average of all numbers from 1 to 6). This isn't actually one of the specific outcomes. It is simply an average that gives you some idea of the location or middle outcome or the probability distribution.
+
+We can also indicate the variance of this numerical outcome as:
+
+$$
+var(X)
+$$
+
+This has the same meaning as the variance in statistics.
+
+We may also use notation to indicate the mean and standard deviation of a random variable $X$ with:
+
+* $\mu_X$ = mean of X
+* $\sigma_X$ = standard deviatino of X
+* $\sigma_X^2$ = variance of X
+
+
+

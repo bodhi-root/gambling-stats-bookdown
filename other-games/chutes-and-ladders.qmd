@@ -1,0 +1,244 @@
+# Chutes and Ladders {#chutes-and-ladders}
+
+![Chutes and Ladders Board](../images/chutes-and-ladders.png)
+
+## Overview
+
+Chutes and Ladders is one of my least favorite games to play. Even though the dice introduce randomness into the game, it still feels like you are just going through the motions of a deterministic process, waiting to see who comes out the winner.  There are no decisions to make and no way that you can impact the game or improve your odds of winning.  It feels very passive.
+
+I remember when I was about 22, working at the University of Cincinnati, and thinking about how much I hate this game.  I wondered how long the game takes to play on average.  With the unfettered access university employees get to academic journals, I came across an article:
+
+> "How Long Is a Game of Snakes and Ladders?" (S.C. Althoen, L. King and K.Schilling, The Mathematical Gazette, Vol. 77, No. 478, pp. 71-76, Mar. 1993). [linke here](https://www.jstor.org/stable/3619261
+)
+
+Not only did this article provide an answer: 39.2 turns on average, it also provided an exact fractional representation of the expected game length:
+
+$$
+\frac{225837582538403273407117496273279920181931269186581786048583}{5757472998140039232950575874628786131130999406013041613400}
+$$
+
+I thought that was pretty bad-ass! The paper also explained how the entire game could be modeled as a "state-absorbing Markov chain", which sounded fun to work with. Of course, it wasn't enough just to get the answer.  I wanted to reproduce it myself and learn more about these Markov chains.  So that's exactly what I did.
+
+## Markov Processes and Chains
+
+A Markov process is a process whose future state is entirely determined by its current state.  It does not matter what has come before.  The current state is enough to know what will come next.  All you really need is some way to represent the current state, and then some kind of transition function you apply to the current state to get the next state.  This can then be iterated forward in discrete steps to discover future states.  A "Markov chain" refers to the model you build to describe the particular process.
+
+In Chutes-and-Ladders the current state can be modeled by a 101 element vector.  This vector represents the 100 positions on the board (labeled 1 to 100) and the starting position (position 0) which is off the board.  The player begins in position 0, so that we initialize our state to a vector of all zeroes except for a 1 in the first element.
+
+The transition matrix represents the roll of a die and what can happen to your player when that happens.  With a 6-sided die there is a 1/6 chance of rolling each number, and each number indicates the number of states you will advance.  Thus, if you are on space \#10 you have a 1/6 chance of being on space \#11 the next round, a 1/6 chance of being on space \#12, and so on through space \#16.  This would be true if there were no chutes or ladders.  Actually, there is a chute on space \#16 that takes you back to space \#6.  So the transition matrix would need to be adjusted to show that you actually have a 1/6 chance of going to space \#6 and a zero chance of going to \#16.  The R code below builds the appropriate initial state vector and transition matrix for the game:
+
+```{python}
+import numpy as np
+
+# initial state: [1, 0, 0, ...] (start on space 0: 100%)
+state0 = np.repeat(0, 101)
+state0[0] = 1
+
+# transition matrix. T_matrix[i,j] gives the probability
+# of moving from space j to space i.
+T_matrix = np.zeros((101, 101))
+for i in range(101):
+  for j in range(6):
+    next_space = i + j + 1
+    if next_space > 100: # must land on last space exactly
+      next_space = i
+    T_matrix[next_space, i] += 1/6
+
+# list of special transitions: (type, from, to)
+# for `type`: "L" is ladder and "C" is chute (not that it matters here)
+# the `from` and `to` positions are 1-based, just as they appear on the board
+specials = [
+  ["L",  1,  38],
+  ["L",  4,  14],
+  ["L",  9,  31],
+  ["L", 21,  42],
+  ["L", 28,  84],
+  ["L", 36,  44],
+  ["L", 51,  67],
+  ["L", 71,  91],
+  ["L", 80, 100],
+  ["C", 16,   6],
+  ["C", 47,  26],
+  ["C", 49,  11],
+  ["C", 56,  53],
+  ["C", 62,  19],
+  ["C", 64,  60],
+  ["C", 87,  24],
+  ["C", 93,  73],
+  ["C", 95,  75],
+  ["C", 98,  78]
+]
+
+for _, start, end in specials:
+  # row-based changes because anyone who thought they were going to land
+  # on one of these spaces is actually going to land somewhere else.
+  # there is zero probability of remaining on a chute or ladder space
+  T_matrix[end,:] += T_matrix[start,:]
+  T_matrix[start,:] = 0
+```
+
+We can then simulate a turn in the game simply by multiplying our state vector by the transition matrix.  After one turn we have the following:
+
+```{python}
+state = state0
+state = T_matrix @ state
+
+def print_state(state):
+  """Print non-zero entries of state vector"""
+  for i in range(len(state)):
+    if state[i] > 0:
+      print(f"{i}: {state[i]}")
+
+print_state(state)
+```
+
+We have a 1/6 chance of ending up in spaces: 2, 3, 5, 14, 38.
+
+When we take the next step, these probabilities start to spread out:
+
+```{python}
+state = T_matrix @ state
+print_state(state)
+```
+
+They start to reflect the various ways the game can play out based upon our first roll and second roll. And of course, we could find the probabilities describing the board after N turns with the simple equation:
+
+$$
+x_N = T^N x_0
+$$
+
+## Statistics
+
+We can now ask ourselves questions such as: how many turns will it take before we have a 50% chance of ending the game? (i.e. what is the median length of a 1 player game?)
+
+```{python}
+state = state0
+n_steps = 0
+
+while True:
+  state = T_matrix @ state
+  n_steps += 1
+
+  if state[100] >= 0.5:
+    break
+
+print(f"Median Game Length = {n_steps}") # prints 32
+```
+
+If you play the game by yourself, you will have a 50% chance of finishing the game after 32 turns.
+
+While it is possible in theory for games to go on forever (you can always keep hitting those slides), we can put an upper bound on what is practical by measuring how many turns before we have a 99.9999% chance of finishing the game:
+
+```{python}
+state = state0
+n_steps = 0
+
+while True:
+  state = T_matrix @ state
+  n_steps += 1
+  
+  if state[100] >= 0.999999:
+    break
+
+print(f"Max Game Length = {n_steps}") # prints 352
+```
+
+It is very unlikely that a 1-player game would go beyond 300 turns.
+
+With this upper bound in mind lets build a vector containing the probabilities of ending the game at each turn:
+
+```{python}
+state = state0
+
+max_turns = 1000
+
+# cumulative probability distribution where index i is the 
+# probability of winning after i turns
+cdf_finish = np.zeros(max_turns + 1)
+
+for i in range(max_turns):
+  state = T_matrix @ state
+  cdf_finish[i+1] = state[100]
+
+pdf_finish = np.concat(([0], np.diff(cdf_finish)))
+
+import matplotlib.pyplot as plt
+
+def plot_pmf(pmf, title, xlabel):
+  """Plots a discrete probability mass function. `pmf` is an array
+  of probability where index `i` represents the probability of `i`.
+  """
+  plt.figure(figsize=(8, 4))
+  #plt.stem(np.arange(len(pmf)), pmf, markerfmt='none') 
+  plt.scatter(np.arange(len(pmf)), pmf, facecolors='none', edgecolors='black')
+  plt.title(title)
+  plt.xlabel(xlabel)
+  plt.ylabel("probability")
+  plt.show()
+
+plot_pmf(pdf_finish, "Probability of finishing a 1-player game in a specific number of turns", "turns")
+```
+
+We can now answer all kinds of fun questions.  What is the average length of a 1-player game:
+
+```{python}
+result = np.average(np.arange(len(pdf_finish)), weights=pdf_finish)
+print(f"Average Length of Game = {result}")
+```
+
+The average game length is calculated to be 39.2 turns. This is exactly the answer that was given in the paper. (Hoo-Wah!) Actually, we match the exact fraction they give out to 9 decimal places: 39.225122308. After this, their answer is slightly higher than ours. This is likely due to us truncating our games after 1000 turns instead of extending them towards infinity. It may also be influenced by computational rounding.
+
+## Multi-Player Games
+
+But how many times do you play Chutes and Ladders by yourself?  Let's tackle a topic that wasn't covered in the paper: the expected length of multi-player games. We can calculate this by producing a probability distribution indicating the probability that none of the players have finished the game and then taking the complement of this:
+
+```{python}
+cdf_still_playing = 1 - cdf_finish
+cdf_still_playing2 = cdf_still_playing ** 2
+cdf_finish2 = 1 - cdf_still_playing2
+pdf_finish2 = np.concat(([0], np.diff(cdf_finish2)))
+
+plot_pmf(pdf_finish2, "Probability of finishing a 2-player game in a specific number of turns", "turns")
+```
+
+As before, we can use this probability distribution to calculate the expected length of the game:
+
+```{python}
+result = np.average(np.arange(len(pdf_finish2)), weights=pdf_finish2)
+print(f"Average Length of Game = {result}")
+```
+
+We find this to be 26.3 turns.
+
+We can also do the same for any number of players:
+
+```{python}
+#| output: false
+
+def get_average_game_length(n_players, cdf_finish):
+  """Calculate the average number of turns a game will last with
+  `n_players` playing. `cdf_finish` gives the CDF for the number
+  of turns it will take one player to finish the game.
+  """
+  cdf_still_playing = 1 - cdf_finish
+  cdf_still_playing_n = cdf_still_playing ** n_players
+  cdf_finish_n = 1 - cdf_still_playing_n
+  pdf_finish_n = np.concat(([0], np.diff(cdf_finish_n)))
+  return np.average(np.arange(len(pdf_finish_n)), weights=pdf_finish_n)
+
+for n_players in range(1, 5):
+  avg_game_length = get_average_game_length(n_players, cdf_finish)
+  est_minutes = avg_game_length * n_players * 10 / 60
+  print(f"| {n_players} | {avg_game_length:.6f} | {est_minutes:.6f} |")
+```
+
+| n_players | avg_game_turns | avg_game_minutes |
+|-----------|----------------|------------------|
+| 1         |      39.225122 |         6.537520 |
+| 2         |      26.330957 |         8.776986 |
+| 3         |      21.728051 |        10.864025 |
+| 4         |      19.266975 |        12.844650 |
+
+In the table above we have added a column for the expected game length in minutes.  This is assuming that each player takes 10 seconds to move.  Notice that even though the game with more players ends in fewer turns, these games actually take longer because more people have to move on each turn.
+
+So next time someone asks if you want to play Chutes and Ladders, pull up these figures and you'll know what you're signing up for (on average).  Let's just hope you don't get stuck in one of those rare 300+ turn games!

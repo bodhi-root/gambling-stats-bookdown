@@ -1,0 +1,30 @@
+# War
+
+## Overview
+
+One of the games that seems like a complete waste of time these days (although I admit I did enjoy playing it as a kid) is "War". This is the game where you split the deck in half and then each person turns up a card.  The person with the highest card wins the round and takes both cards for their pile. In the event of a tie, you have a "war" where you place 3 cards face-down and then 1 face-up.  The face-up cards are compared and the winner takes all. Unless it is another tie, in which case you repeat the "war" again.
+
+There is no strategy in this game and no decisions to make. In fact, despite maybe some randomness in how you collect cards into a pile and how you shuffle, the outcome of the game is essentially known the minute the cards are divided. This makes it a simple game to simulate and answer some basic questions about the game.
+
+## Simulation
+
+The simulation can be found in the Java program "com.futurestats.games.war.WarSimulator".
+
+One complexity that arose during the simulation was how to handle the cases where a war is in progress and a player runs out of cards. In this case, I decided the player that still had cards left wins the game.  [Wikipedia](https://en.wikipedia.org/wiki/War_(card_game)) had this to say on the topic:
+
+> "Most descriptions of War are unclear about what happens if a player runs out of cards during a war. In some variants, that player immediately loses. In others, the player may play the last card in their deck as their face-up card for the remainder of the war or replay the game from the beginning."
+
+Other than this ambiguity, the coding of the simulation was very straight-forward.
+
+## Results
+
+I ran two simulations: one including Jokers in the deck and one without. In each case we simulated 100,000 games and recorded how many rounds the game lasted. The results are below:
+
+| Simulation | Avg. Rounds | Min Rounds | Max Rounds |
+|:-----------|------------:|-----------:|-----------:|
+| No Jokers  | 234.44686   | 5          | 2088       |
+| Jokers     | 270.48799   | 5          | 2396       |
+
+On average, a game lasts 234-270 rounds (depending on whether you have Jokers or not). Jokers make the game longer. This makes sense because they are hard cards to capture from your opponent. The shortest game observed was only 5 turns. This must have been a game with a long "war" with many ties since you'd have to capture 26-27 cards in these 5 turns. The longest games were over 2,000 rounds.
+
+If you play quickly, you could probably do a round every 1-2 seconds. That means you can expect your game to last an average of 4-8 minutes. But don't be surprised if you end up in the long tail with games that can run as long as 40-80 minutes - especially if you use Jokers.

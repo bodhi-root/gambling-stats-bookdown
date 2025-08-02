@@ -1,7 +1,8 @@
-.Rproj.user
-.Rhistory
-.RData
-_publish.R
-_book
-_bookdown_files
-rsconnect
+/.quarto
+/.venv
+/_book
+/site_libs
+/_scratch.ipynb
+/.quarto
+/index.tex
+/index.log

@@ -1,0 +1,59 @@
+# R Code
+
+```{r}
+x_values <- seq(0, 1, 0.1)  # discrete values we will model
+pdf_prior <- rep(1.0/length(x_values), length(x_values))
+
+avg_value <- weighted.mean(x_values, pdf_prior)
+print(paste0("Expecte Value = ", avg_value))
+```
+
+```{r}
+get_likelihoods <- function(x_values, num_heads, num_tails) {
+  dbinom(num_heads, num_heads+num_tails, x_values)
+}
+```
+
+```{r}
+update_priors <- function(x_values, priors, num_heads, num_tails) {
+  likelihoods <- get_likelihoods(x_values, num_heads, num_tails)
+  priors <- (priors * likelihoods) / sum(priors * likelihoods)
+  priors
+}
+```
+
+```{r}
+trials <- tibble::tribble(
+  ~heads, ~tails,
+  1, 0,
+  0, 1,
+  2, 3,
+  1, 4,
+  5, 5,
+  6, 4,
+  4, 6,
+  9, 1,
+  10, 10,
+  15, 5,
+  19, 1,
+  20, 0,
+  50, 50,
+  60, 40,
+  90, 10,
+  100, 0
+)
+
+avg_posterior <- rep(NA_real_, nrow(trials))
+for (i_row in 1:nrow(trials)) {
+  pdf_posterior <- update_priors(x_values, pdf_prior, trials$heads[i_row], trials$tails[i_row])
+  avg_posterior[i_row] <- weighted.mean(x_values, pdf_posterior)
+}
+
+knitr::kable(data.frame(
+  n = trials$heads + trials$tails,
+  heads = trials$heads,
+  tails = trials$tails,
+  mle = trials$heads / (trials$heads + trials$tails),
+  avg_posterior = avg_posterior
+))
+```
