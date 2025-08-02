@@ -20,6 +20,20 @@ When you are ready to render the book, use the following command:
 quarto render
 ```
 
+## Environment Setup
+
+If you're using codespaces, this should be relatively easy. The devcontainer is setup to use the docker image "ghcr.io/mcanouil/quarto-codespaces:latest". This includes the Quarto CLI as well as Python, R, and Julia. The only thing we have to do is add our Python dependencies. This is done automatically by the devcontainer via the "postCreateCommand":
+
+```
+pip install -r requirements.txt
+```
+
+requirements.txt is build from requirements.in using:
+
+```
+uv pip compile requirements.in -o requirements.txt
+```
+
 ## Old Notes (Bookdown)
 
 This is yet another attempt by me to record some of my favorite applications of statistics and computer analysis: gambling.  I've tried this before in different formats: notebooks, Word, Confluence.  I'd like to build it in a way that is:

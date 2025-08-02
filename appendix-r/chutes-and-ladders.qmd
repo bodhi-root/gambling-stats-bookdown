@@ -27,81 +27,84 @@ In Chutes-and-Ladders the current state can be modeled by a 101 element vector. 
 
 The transition matrix represents the roll of a die and what can happen to your player when that happens.  With a 6-sided die there is a 1/6 chance of rolling each number, and each number indicates the number of states you will advance.  Thus, if you are on space \#10 you have a 1/6 chance of being on space \#11 the next round, a 1/6 chance of being on space \#12, and so on through space \#16.  This would be true if there were no chutes or ladders.  Actually, there is a chute on space \#16 that takes you back to space \#6.  So the transition matrix would need to be adjusted to show that you actually have a 1/6 chance of going to space \#6 and a zero chance of going to \#16.  The R code below builds the appropriate initial state vector and transition matrix for the game:
 
-```{python}
-import numpy as np
+```{r}
+state0 <- c(1, rep(0, 100))
 
-# initial state: [1, 0, 0, ...] (start on space 0: 100%)
-state0 = np.repeat(0, 101)
-state0[0] = 1
+T_matrix <- matrix(0, nrow=101, ncol=101)
 
-# transition matrix. T_matrix[i,j] gives the probability
-# of moving from space j to space i.
-T_matrix = np.zeros((101, 101))
-for i in range(101):
-  for j in range(6):
-    next_space = i + j + 1
-    if next_space > 100: # must land on last space exactly
-      next_space = i
-    T_matrix[next_space, i] += 1/6
+for (i in 0:101) {
+  for (j in 1:6) {
+    next_space <- i + j
+    if (next_space > 101) { # must land on last space exactly
+      next_space <- i
+    }
+    T_matrix[next_space, i] <- T_matrix[next_space, i] + 1/6
+  }
+}
+print(head(T_matrix, 10))
+```
 
-# list of special transitions: (type, from, to)
-# for `type`: "L" is ladder and "C" is chute (not that it matters here)
-# the `from` and `to` positions are 1-based, just as they appear on the board
-specials = [
-  ["L",  1,  38],
-  ["L",  4,  14],
-  ["L",  9,  31],
-  ["L", 21,  42],
-  ["L", 28,  84],
-  ["L", 36,  44],
-  ["L", 51,  67],
-  ["L", 71,  91],
-  ["L", 80, 100],
-  ["C", 16,   6],
-  ["C", 47,  26],
-  ["C", 49,  11],
-  ["C", 56,  53],
-  ["C", 62,  19],
-  ["C", 64,  60],
-  ["C", 87,  24],
-  ["C", 93,  73],
-  ["C", 95,  75],
-  ["C", 98,  78]
-]
+```{r}
+state0 <- c(1, rep(0, 100))
 
-for _, start, end in specials:
-  # row-based changes because anyone who thought they were going to land
-  # on one of these spaces is actually going to land somewhere else.
-  # there is zero probability of remaining on a chute or ladder space
-  T_matrix[end,:] += T_matrix[start,:]
-  T_matrix[start,:] = 0
+T_matrix <- matrix(0, nrow=101, ncol=101)
+
+for (i in 0:101) {
+  for (j in 1:6) {
+    next_space <- i + j
+    if (next_space > 101) { # must land on last space exactly
+      next_space <- i
+    }
+    T_matrix[next_space, i] <- T_matrix[next_space, i] + 1/6
+  }
+}
+
+df_special <- tibble::tribble(
+  ~type, ~from, ~to,
+  "L", 1, 38,
+  "L", 4, 14,
+  "L", 9, 31,
+  "L", 21, 42,
+  "L", 28, 84,
+  "L", 36, 44,
+  "L", 51, 67,
+  "L", 71, 91,
+  "L", 80, 100,
+  "C", 16, 6,
+  "C", 47, 26,
+  "C", 49, 11,
+  "C", 56, 53,
+  "C", 62, 19,
+  "C", 64, 60,
+  "C", 87, 24,
+  "C", 93, 73,
+  "C", 95, 75,
+  "C", 98, 78
+)
+
+for (i in 1:nrow(df_special)) {
+  T_matrix[df_special$to[i]+1,] <- T_matrix[df_special$to[i]+1,] + T_matrix[df_special$from[i]+1,]
+  T_matrix[df_special$from[i]+1,] <- 0
+}
 ```
 
 We can then simulate a turn in the game simply by multiplying our state vector by the transition matrix.  After one turn we have the following:
 
-```{python}
-state = state0
-state = T_matrix @ state
-
-def print_state(state):
-  """Print non-zero entries of state vector"""
-  for i in range(len(state)):
-    if state[i] > 0:
-      print(f"{i}: {state[i]}")
-
-print_state(state)
+```{r}
+state <- state0
+state <- T_matrix %*% state
+as.numeric(state)
 ```
-
 We have a 1/6 chance of ending up in spaces: 2, 3, 5, 14, 38.
 
 When we take the next step, these probabilities start to spread out:
 
-```{python}
-state = T_matrix @ state
-print_state(state)
+```{r}
+state <- T_matrix %*% state
+as.numeric(state)
 ```
 
-They start to reflect the various ways the game can play out based upon our first roll and second roll. And of course, we could find the probabilities describing the board after N turns with the simple equation:
+They start to reflect the various ways the game can play out based upon our first roll and second roll.  And of course, we could find the probabilities describing the board after N turns with the simple equation:
 
 $$
 x_N = T^N x_0
@@ -111,87 +114,76 @@ $$
 
 We can now ask ourselves questions such as: how many turns will it take before we have a 50% chance of ending the game? (i.e. what is the median length of a 1 player game?)
 
-```{python}
-state = state0
-n_steps = 0
+```{r}
+state <- state0
+n_steps <- 0
 
-while True:
-  state = T_matrix @ state
-  n_steps += 1
+while(TRUE) {
+  state <- T_matrix %*% state
+  n_steps <- n_steps + 1
+  
+  if (state[101] >= 0.5) {break}
+}
 
-  if state[100] >= 0.5:
-    break
-
-print(f"Median Game Length = {n_steps}")
+cat(paste0("Median Game Length = ", n_steps))
 ```
-
-If you play the game by yourself, you will have a 50% chance of finishing the game after 32 turns.
-
 While it is possible in theory for games to go on forever (you can always keep hitting those slides), we can put an upper bound on what is practical by measuring how many turns before we have a 99.9999% chance of finishing the game:
 
-```{python}
-state = state0
-n_steps = 0
+```{r}
+state <- state0
+n_steps <- 0
 
-while True:
-  state = T_matrix @ state
-  n_steps += 1
+while(TRUE) {
+  state <- T_matrix %*% state
+  n_steps <- n_steps + 1
   
-  if state[100] >= 0.999999:
-    break
+  if (state[101] >= 0.999999) {break}
+}
 
-print(f"Max Game Length = {n_steps}") # prints 352
+cat(paste0("Max Game Length = ", n_steps))
 ```
-
 It is very unlikely that a 1-player game would go beyond 300 turns.
 
 With this upper bound in mind lets build a vector containing the probabilities of ending the game at each turn:
 
-```{python}
-state = state0
+```{r}
+state <- state0
+cdf_finish <- rep(0,1000)
 
-max_turns = 1000
+for (i in 1:1000) {
+  state <- T_matrix %*% state
+  cdf_finish[i] <- state[101]
+}
 
-# cumulative probability distribution where index i is the 
-# probability of winning after i turns
-cdf_finish = np.zeros(max_turns + 1)
-
-for i in range(max_turns):
-  state = T_matrix @ state
-  cdf_finish[i+1] = state[100]
-
-pdf_finish = np.concat(([0], np.diff(cdf_finish)))
-
-import seaborn as sns
-sns.scatterplot(x=np.arange(max_turns+1), y=pdf_finish, color="black", alpha=1.0, edgecolor='none')
+pdf_finish <- diff(c(0, cdf_finish))
+plot(pdf_finish, xlim=c(0, 300))
 ```
 
 We can now answer all kinds of fun questions.  What is the average length of a 1-player game:
 
-```{python}
+```{r}
 result <- weighted.mean(x=1:1000, w=pdf_finish)
 cat(paste0("Average Length of Game = ", result))
 ```
-
 This is exactly the answer that was given in the paper. (Hoo-Wah!)
 
 But how many times do you play Chutes and Ladders by yourself?  Let's tackle a topic that wasn't covered in the paper: the expected length of multi-player games. We can calculate this by producing a probability distribution indicating the probability that none of the players have finished the game and then taking the complement of this:
 
-```{python}
+```{r}
 cdf_still_playing <- 1 - cdf_finish
 cdf_still_playing2 <- cdf_still_playing ^ 2
 cdf_finish2 <- 1 - cdf_still_playing2
 pdf_finish2 <- diff(c(0, cdf_finish2))
 plot(pdf_finish2)
 ```
-```{python}
+```{r}
 result <- weighted.mean(x=1:1000, w=pdf_finish2)
 cat(paste0("Average Length of 2 Player Game = ", result))
 ```
 
 We can also do the same for any number of players:
 
-```{python table-chutes-and-ladders-summary}
+```{r table-chutes-and-ladders-summary}
 get_average_game_length <- function(n_players) {
   cdf_still_playing <- 1 - cdf_finish
   cdf_still_playing_n <- cdf_still_playing ^ n_players
