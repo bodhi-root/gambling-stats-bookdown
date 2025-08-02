@@ -1,4 +1,4 @@
-# Blackjack
+# Blackjack {#blackjack}
 
 ## Introduction
 
@@ -12,13 +12,13 @@ Suffice it to say that the more you learn about Blackjack, especially with it be
 
 The Wizard of Odds offers great tools to help players learn Basic Strategy, the mathematically optimal way of playing Blackjack against a newly shuffled deck of cards.
 
-![Basic Strategy, 4-8 Decks, Dealer Stands on Soft 17](images/bj-basic-strategy-4-to-8-decks.gif)
+![Basic Strategy, 4-8 Decks, Dealer Stands on Soft 17](../images/bj-basic-strategy-4-to-8-decks.gif)
 
-![Basic Strategy, 4-8 Decks, Dealer Hits on Soft 17](images/bj-basic-strategy-4-to-8-decks-hit-soft-17.gif) |
+![Basic Strategy, 4-8 Decks, Dealer Hits on Soft 17](../images/bj-basic-strategy-4-to-8-decks-hit-soft-17.gif) |
 
-![Basic Strategy, 1 Deck, Dealer Stands on Soft 17](images/bj-basic-strategy-1-deck.gif)
+![Basic Strategy, 1 Deck, Dealer Stands on Soft 17](../images/bj-basic-strategy-1-deck.gif)
 
-![Basic Strategy, 1 Deck, Dealer Hits on Soft 17](images/bj-basic-strategy-1-deck-hit-soft-17.gif) |
+![Basic Strategy, 1 Deck, Dealer Hits on Soft 17](../images/bj-basic-strategy-1-deck-hit-soft-17.gif) |
 
 When playing according to these strategies, the Wizard of Odds calculates that you have the following expected returns:
 

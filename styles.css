@@ -1,0 +1,5 @@
+/* left-align equations */
+.math.display mjx-container[jax="CHTML"][display="true"] {
+    text-align: left;
+    padding-left: 0.5in;
+}

@@ -1,6 +1,6 @@
 # Chutes and Ladders
 
-![Chutes and Ladders Board](images/chutes-and-ladders.png)
+![Chutes and Ladders Board](../images/chutes-and-ladders.png)
 
 ## Overview
 
@@ -13,7 +13,9 @@ I remember when I was about 22, working at the University of Cincinnati, and thi
 
 Not only did this article provide an answer: 39.2 turns on average, it also provided an exact fractional representation of the expected game length:
 
-$$ \frac{225837582538403273407117496273279920181931269186581786048583}{5757472998140039232950575874628786131130999406013041613400} $$
+$$
+\frac{225837582538403273407117496273279920181931269186581786048583}{5757472998140039232950575874628786131130999406013041613400}
+$$
 
 I thought that was pretty bad-ass! The paper also explained how the entire game could be modeled as a "state-absorbing Markov chain", which sounded fun to work with. Of course, it wasn't enough just to get the answer.  I wanted to reproduce it myself and learn more about these Markov chains.  So that's exactly what I did.
 
@@ -87,7 +89,9 @@ as.numeric(state)
 
 They start to reflect the various ways the game can play out based upon our first roll and second roll.  And of course, we could find the probabilities describing the board after N turns with the simple equation:
 
-$$ x_N = T^N x_0 $$
+$$
+x_N = T^N x_0
+$$
 
 ## Statistics
 
